@@ -6,7 +6,7 @@
     <groupId>org.esupportail.cas</groupId>
     <artifactId>cas-toolbox</artifactId>
     <packaging>pom</packaging>
-  	<version>3.4.10-1</version>
+  	<version>3.4.10</version>
  
  	<build> 	
  		<filters>
