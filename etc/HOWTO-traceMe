@@ -1,0 +1,14 @@
+Le "traceMe" va déposer un cookie de domain sur le client (valuer opaque) et va logguer cookie=> login
+
+Comment activer les "traceMe" :
+- dans le fichier src/main/webapp/WEB-INF/spring-configuration/trace-me.xml
+- décommenter le beans "putTraceMeAction" et "traceMeUniqueIdGenerator"
+- dans src/main/webapp/WEB-INF/classes/log4j.xml
+- décommenter l'appender "traceAppender" et le logger "org.esupportail.cas.web.flow.TraceMeAction"
+- dans le fichier src/main/webapp/WEB-INF/login-webflow.xml
+- décommenter la transition vers "putTraceMe", commenter la transition précédente vers "serviceCheck" et décommenter l'action "putTraceMe" 
+- Configurer le config.properties
+trace.cookieMaxAge=432000
+trace.cookieName=CASTRACEME
+trace.cookiePath=/
+tace.cookieDomain=.univ-nancy2.fr

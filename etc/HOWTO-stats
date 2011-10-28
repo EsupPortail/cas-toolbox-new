@@ -1,0 +1,6 @@
+Le "stat" va collecter les tats login,ticket en mémoire et va les exposer via une simple jsp
+
+Comment activer les "stat" :
+- dans le fichier src/main/webapp/WEB-INF/spring-configuration/auditTrailContext.xml
+- décommenter le beans "org.esupportail.cas.statistics.support.InMemoryStatisticManager"
+- sécurisé l'acces a la jsp stats.jsp

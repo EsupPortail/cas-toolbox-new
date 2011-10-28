@@ -1,0 +1,378 @@
+#cas form
+{
+	background: #fff;
+	display: block;
+	margin: 18px 0 0;
+	padding: 0;
+	width: 100%;
+}
+#cas fieldset
+{
+	border: 0;
+	clear: none;
+	float: left;
+	margin: 0;
+	padding: 0;
+	width: auto;
+}
+#cas fieldset legend
+{
+	display: none;
+}
+#cas #login
+{
+	background: #EFFAE8;
+	border: 0;
+	float: none;
+	min-height: 15em;
+	padding: 15px;
+	position: relative;
+	width: 258px;
+	margin : 0 0 20px 40%;
+	border: 1px dotted #192A89;
+}
+#cas #login:before
+{
+	display: block;
+	font-size: 1px;
+	height: 15px;
+	line-height: 0.1;
+	margin: -15px -15px 0 -15px;
+}
+#cas #login:after
+{
+	clear: both;
+	content: url("images/key-point_bl.gif");
+	display: block;
+	font-size: 1px;
+	height: 8px;
+	line-height: 0.1;
+	margin: -15px;
+	padding-top: 15px;
+}
+#cas #login h2
+{
+	border-bottom: 1px solid #ddd;
+	color: #191970;
+	font: normal 400 17px Verdana, "Times New Roman", Times, serif;
+	padding: 3px 0;
+	text-align:center;
+}
+#cas #login label
+{
+	font-size: 11px;
+}
+#cas #login label span.accesskey
+{
+	text-decoration: underline;
+}
+#cas #login input
+{
+	letter-spacing: 1px;
+}
+#cas #login .check input
+{
+	height: auto;
+	left: -4px;
+	position: relative;
+}
+#cas #login .check label
+{
+	float: none;
+	line-height: 1.8;
+	xwidth: auto;
+}
+#cas #login .btn-row
+{
+	border-top: 1px solid #ddd;
+	padding-top: 10px;
+	position: relative;
+	top: 15px;	
+	text-align:center;
+}
+* html #cas #login .btn-row
+{
+	top: 5px;	
+	text-align:center;
+}
+#cas #login .btn-submit, #cas #login .btn-reset
+{
+	font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+	border: 1px solid #003366;
+	clear: none;
+	color: #191970;
+	background: #9FD683;
+	display: inline;
+	float: none;
+	letter-spacing: 0;
+}
+* html #cas #login .btn-submit
+{
+	background: #ffd;
+}
+#cas #sidebar
+{
+	float: left;
+	margin-left: 20%;
+	padding: 18px 15px;
+	border: 1px dotted #192A89;	
+}
+#cas #sidebar h3
+{
+	color: #555;
+	font: normal 400 11px Verdana, "Times New Roman", Times, serif;
+	margin: 18px 0 0;
+	padding: 6px 0 3px;
+}
+#cas #sidebar p
+{
+	color: #555;
+	font-size: 1.1em;
+	margin: 0 0 18px;
+	padding: 0;
+}
+#cas #list-languages ul
+{
+	line-height: 1.5;
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+#cas #list-languages ul li
+{
+	border-right: 1px solid #ccc;
+	display: inline;
+	padding: 0 5px;
+}
+#cas #list-languages ul li.first
+{
+	padding-left: 0;
+}
+#cas #list-languages ul li.last
+{
+	border: 0;
+	padding-right: 0;
+}
+#cas #footer p
+{
+	margin: 0 0 1em 0;
+	padding: 0;
+}
+html,body,div,span,h1,h2,h3,p,a,img,ul,li,fieldset,form,label,legend
+{
+	border: 0;
+	font-family: inherit;
+	font-size: 100%;
+	font-style: inherit;
+	font-weight: inherit;
+	margin: 0;
+	outline: 0;
+	padding: 0;
+	vertical-align: baseline;
+}
+:focus
+{
+	outline: 0;
+}
+ul
+{
+	font-size: 1.1em;
+	list-style: none;
+	padding: 0 0 18px 40px;
+}
+body
+{
+	background: #fff;
+	color: #333;
+	font: normal 400 62.5%/1.0 Verdana, sans-serif;
+	min-width: 960px;
+}
+#header:after, #content:after, #footer:after, .clearfix:after
+{
+	clear: both;
+	content: ".";
+	display: block;
+	height: 0;
+	visibility: hidden;
+}
+#header
+{
+	padding-bottom: 10px;
+	top: 0;	
+	position:relative; 
+	top:0; 
+	left:0; 
+	padding-top:10px; 
+	background:#fff url(images/esup-logo.gif) no-repeat scroll 99% 32px;
+}
+
+
+
+#header h1#app-name
+{
+	background: #D6EFC7;
+	clear: both;
+	color: #192A89;
+	font: normal 400 2.8em/2.5em Verdana,"Times New Roman", serif;
+	padding: 0 0 0 0px;
+	margin: 0px 20% 0 20%;
+	text-align: center;
+	border: 1px dotted #192A89;
+}
+#content
+{
+	clear: both;
+	margin: 0 25px 2em;
+	padding: 1px 0;
+}
+#content h2
+{
+	color: #000;
+	font-size: 1.3em;
+	font-weight: 400;
+	margin: 0 0 .5em 0;
+	padding: 3px 0;
+	xborder-bottom: 1px solid #eee;
+	xletter-spacing: -1px;
+}
+#content h3
+{
+	font: 1em arial, helvetica, sans-serif;
+	font-weight: 400;
+}
+#content p
+{
+	font-size: 1.1em;
+	line-height: 1.5;
+	padding: 0 0 18px;
+}
+#footer
+{
+	background: transparent;
+	border-top: 1px solid #ccc;
+	clear: both;
+	color: #999;
+	margin: 0 25px 1em;
+	padding: 0 0 1px 0;
+	position: relative;
+}
+#footer img#logo
+{
+	margin-top: 10px;
+	position: absolute;
+	right: 0;
+	top: 0;
+}
+#footer div
+{
+	clear: left;
+	margin: 1em 5px .5em;
+	overflow: hidden;
+}
+.info, .errors, .success
+{
+	clear: both;
+	font-size: 10px;
+	line-height: 1.5;
+	margin: 20px 10% 20px 10%;
+	padding: 20px 20px 20px 100px;
+	
+}
+.info
+{
+	background: #eff url(images/info.gif) no-repeat 20px 18px;
+	border: 1px dotted 008;
+	color: #008;
+}
+.errors
+{
+	background: #fed url(images/error.gif) no-repeat 20px 18px;
+	border: 1px dotted #d21033;
+	color: #d21033;
+	padding-bottom: 40px;
+}
+.success
+{
+	background: #dfa url(images/confirm.gif) no-repeat 20px 18px;
+	border: 1px dotted #390;
+	color: #390;
+}
+#content .errors h2, #content .success h2
+{
+	font-family: Georgia,"Times New Roman",Times,serif;
+	font-size: 18px;
+	font-weight: 400;
+	line-height: 48px;
+	margin: 0 18px 0 0;
+	padding: 0;
+}
+#content .success h2
+{
+	color: #008 !important;
+}
+#content .errors h2
+{
+	color: #b00 !important;
+}
+#content .success h2
+{
+	color: #060 !important;
+}
+#content #msg p
+{
+	padding: 0;
+}
+label
+{
+	color: #777;
+	cursor: pointer;
+	font-size: 1.1em;
+}
+input
+{
+	border-width: 1px;
+	color: #000;
+	font-family: Verdana,sans-serif;
+	font-size: 1.1em;
+	min-height: 1.5em;
+	padding: 3px;
+}
+input.btn-submit
+{
+	border-width: 2px;
+}
+.fm-v div.row
+{
+	float: left;
+	margin: 0;
+	padding: .5em 0;
+	width: 100%;
+}
+.fm-v div.row label
+{
+	float: left;
+	line-height: 1.5;
+	width: 100%;
+}
+.fm-v div.row input.btn-submit
+{
+	display: block;
+	margin: 0;
+}
+input.error
+{
+	background: #FFEFEF;
+	color: #b00;
+}
+.required
+{
+	background: #ffd;
+}
+.error
+{
+	background: #ffefef;
+}
+input.required
+{
+	border-width: 1px;
+}

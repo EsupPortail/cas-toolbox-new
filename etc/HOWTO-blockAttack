@@ -1,0 +1,12 @@
+Le "blockAttack" va blocker l'authentification d'un utilisateur pendant X seconde lors d'un échec
+
+Comment activer les "blockAttack" :
+- dans le fichier src/main/webapp/WEB-INF/spring-configuration/block-attack.xml
+- décommenter le beans "blockAttackAspect"
+- dans src/main/webapp/WEB-INF/classes/log4j.xml
+- décommenter le logger "org.esupportail.cas.services.blockAttack"
+- Configurer le config.properties
+block.lockTime=3000
+block.cleanTimeout=30000
+block.cleanExecution=60000
+block.attemptsAllowed=3

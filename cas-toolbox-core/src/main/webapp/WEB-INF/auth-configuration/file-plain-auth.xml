@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	| deployerConfigContext.xml centralizes into one file some of the declarative configuration that
+	| all CAS deployers will need to modify.
+	|
+	| This file declares some of the Spring-managed JavaBeans that make up a CAS deployment.  
+	| The beans declared in this file are instantiated at context initialization time by the Spring 
+	| ContextLoaderListener declared in web.xml.  It finds this file because this
+	| file is among those declared in the context parameter "contextConfigLocation".
+	|
+	| By far the most common change you will need to make in this file is to change the last bean
+	| declaration to replace the default SimpleTestUsernamePasswordAuthenticationHandler with
+	| one implementing your approach for authenticating usernames and passwords.
+	+-->
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
+
+	<!--
+		|    File authentication.
+	+-->
+	<bean id="filePlainAuthHandler" class="org.jasig.cas.adaptors.generic.FileAuthenticationHandler" lazy-init="true">
+		<property name="fileName" value="${passfile.location}" />	
+		<property name="passwordEncoder">
+			<!-- 
+			<bean class="org.jasig.cas.authentication.handler.DefaultPasswordEncoder">
+				<constructor-arg value="${passfile.encode-algo}"/>
+			</bean>
+			 -->
+			<bean class="org.jasig.cas.authentication.handler.PlainTextPasswordEncoder"/>			 
+		</property>
+	</bean>
+</beans>
