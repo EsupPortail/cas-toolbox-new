@@ -6,7 +6,7 @@
     <groupId>org.esupportail.cas</groupId>
     <artifactId>cas-toolbox</artifactId>
     <packaging>pom</packaging>
-  	<version>3.4.10</version>
+  	<version>3.4.10-1</version>
  
  	<build> 	
  		<filters>
@@ -54,27 +54,24 @@
                                   <file>${base.prefix}config.properties</file>
                           </files>
                   </configuration>
-          	</plugin>
-          	<plugin>
-		        <groupId>org.mortbay.jetty</groupId>
-		        <artifactId>maven-jetty-plugin</artifactId>
-		        <version>6.1.10</version>
-		        <configuration>
-		          <scanIntervalSeconds>10</scanIntervalSeconds>
-		          <connectors>
-		            <connector implementation="org.mortbay.jetty.nio.SelectChannelConnector">
-		              <port>8080</port>
-		              <maxIdleTime>60000</maxIdleTime>
-		            </connector>
-		          </connectors>
-		        </configuration>
-		    </plugin>
+          	</plugin>          	
+	      	<plugin>
+				<groupId>org.mortbay.jetty</groupId>
+  				<artifactId>jetty-maven-plugin</artifactId>
+				<configuration>
+					<war>${basedir}/cas-toolbox-custom/target/cas-toolbox-custom-${project.version}.war</war>								
+				</configuration>
+			</plugin>
 	      	<plugin>
 		        <groupId>org.apache.maven.plugins</groupId>
 		        <artifactId>maven-compiler-plugin</artifactId>
 		        <configuration>
 		          <source>${maven.compiler.source}</source>
 		          <target>${maven.compiler.target}</target>
+		          <scanIntervalSeconds>10</scanIntervalSeconds>
+    			  <webApp>
+       				<contextPath>${server.uri}</contextPath>
+    			  </webApp>
 		        </configuration>
 	    	</plugin>
 	    </plugins>
