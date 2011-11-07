@@ -28,6 +28,14 @@
         </layout>
     </appender>
     
+    <!-- Add to log rejected service -->
+    <appender name="rejectedServicesAppender" class="org.apache.log4j.FileAppender">
+        <param name="File" value="@log.dir@/rejectedServices.log"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%m%n"/>
+        </layout>
+    </appender>
+    
     <!--  IF USE ESUP traceMe -->
     <appender name="traceAppender" class="org.apache.log4j.FileAppender">
         <param name="File" value="${log.dir}/trace.log"/>
@@ -66,6 +74,12 @@
         <appender-ref ref="authAppender" />
     </logger>
      
+    <!-- Add to log rejected service -->
+    <logger name="org.jasig.cas.CentralAuthenticationServiceImpl" additivity="false">
+        <level value="WARN" />
+        <appender-ref ref="rejectedServicesAppender" />
+    </logger>
+    
     <!--  IF USE ESUP traceMe -->
     <logger name="org.esupportail.cas.web.flow.TraceMeAction" additivity="false">
         <level value="INFO" />
@@ -77,7 +91,7 @@
         <level value="ERROR" />
         <appender-ref ref="authAppender" />
     </logger>
-    
+        
     <!--
         WARNING: Setting the flow package to DEBUG will display
         the parameters posted to the login servlet including
