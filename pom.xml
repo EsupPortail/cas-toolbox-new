@@ -25,6 +25,9 @@
 				        	<includes>
 				          		<include>**/*.properties</include>
 				        	</includes>
+				        	<excludes>
+				          		<exclude>**/messages_fr.properties</exclude>
+				        	</excludes>
 				      	</resource>
 				      	<resource>
 				        	<directory>src/main/webapp/WEB-INF/classes</directory>
@@ -82,6 +85,8 @@
         <base.prefix></base.prefix>   
         
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        
 		<maven.compiler.source>1.6</maven.compiler.source>
 		<maven.compiler.target>1.6</maven.compiler.target>
 		<servlet.api.version>2.5</servlet.api.version>		    
