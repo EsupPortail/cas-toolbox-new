@@ -24,8 +24,26 @@
 		       <configuration>  
 		          <mainClass>org.esupportail.cas.authentication.handler.PasswordEncoder</mainClass>		   		   
 		         </configuration>  
-		      </plugin> 
-	    </plugins>  
+		    </plugin>
+		    <plugin>
+		    	<groupId>org.codehaus.mojo</groupId>
+				<artifactId>native2ascii-maven-plugin</artifactId>
+				<executions>
+				    <execution>
+				        <id>native2ascii</id>
+				        <goals>
+				            <goal>native2ascii</goal>
+				        </goals>
+				        <!-- specific configurations -->
+				        <configuration>
+				     <encoding>UTF8</encoding>
+				            <src>src/main</src>
+				            <includes>**/*.properties</includes>
+				        </configuration>
+				    </execution>
+				</executions>
+			</plugin>    
+	    </plugins> 	  
     </build> 
     
     <properties>
