@@ -1,4 +1,4 @@
-// generator de gradient : http://www.colorzilla.com/gradient-editor/
+/* generator de gradient : http://www.colorzilla.com/gradient-editor/ */
 
 html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, font, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td { margin: 0; padding: 0; border: 0; outline: 0; font-weight: inherit; font-style: inherit; font-size: 100%; font-family: inherit; vertical-align: baseline; }
 
@@ -92,7 +92,7 @@ html {
 	background: -o-linear-gradient(45deg,  #fffdfc 42%,#e3eaed 98%,#c8d7dc 100%); /* Opera 11.10+ */
 	background: -ms-linear-gradient(45deg,  #fffdfc 42%,#e3eaed 98%,#c8d7dc 100%); /* IE10+ */
 	background: linear-gradient(45deg,  #fffdfc 42%,#e3eaed 98%,#c8d7dc 100%); /* W3C */
-	//filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fffdfc', endColorstr='#c8d7dc',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+	/*filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fffdfc', endColorstr='#c8d7dc',GradientType=1 ); */ /* IE6-9 fallback on horizontal gradient */
 
 	-moz-border-radius: 5px; 
 	-webkit-border-radius: 5px; 
@@ -296,7 +296,7 @@ form>.info, form>.errors, form>.success {
 }
 
 .info {
-	border:1px solid 008;    
+	border:1px solid #008;    
 	background:#eff url(../../images/info.gif) no-repeat 7px 7px; 
 	color:#008;
 }
