@@ -13,7 +13,7 @@
 		<property name="cookieMaxAge" value="${trace.cookieMaxAge}"/>
 		<property name="cookieName" value="${trace.cookieName}"/>
 		<property name="cookiePath" value="${trace.cookiePath}"/>
-		<property name="cookieDomain" value="${tace.cookieDomain}"/>
+		<property name="cookieDomain" value="${trace.cookieDomain}"/>
 		<property name="traceMeUniqueIdGenerator" ref="traceMeUniqueIdGenerator"/>
 	</bean>	
 	

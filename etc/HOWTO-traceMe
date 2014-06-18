@@ -11,4 +11,4 @@ Comment activer les "traceMe" :
 trace.cookieMaxAge=432000
 trace.cookieName=CASTRACEME
 trace.cookiePath=/
-tace.cookieDomain=.univ-nancy2.fr
+trace.cookieDomain=.univ-nancy2.fr
