@@ -27,14 +27,15 @@
 <jsp:directive.include file="includes/top.jsp" />
 
 <c:if test="${not pageContext.request.secure}">
-<div class="errors">
-<p>Vous accédez au server CAS sur une connexion non authentifié. L'authentification va fonctionner. Pour éviter de vous identifier à chaque connexion vous devez absolument passer en HTTPS.</p>
+<div id="msg" class="errors">
+	<h2>Connexion non sécurisée<h2>
+	<p>Vous accédez au serveur CAS sur une connexion non authentifiée. L'authentification va fonctionner. Pour éviter de vous identifier à chaque connexion vous devez absolument passer en HTTPS.</p>
 </div>
 </c:if>
 
   <div class="box fl-panel" id="login">
 			<form:form method="post" id="fm1" cssClass="fm-v clearfix" commandName="${commandName}" htmlEscape="true">
-                  <form:errors path="*" cssClass="errors" id="status" element="div" />
+                  <form:errors path="*" id="msg" cssClass="errors" element="div" />
                 <!-- <spring:message code="screen.welcome.welcome" /> -->
                     <h2><spring:message code="screen.welcome.instructions" /></h2>
                     <div class="row fl-controls-left">
@@ -94,14 +95,17 @@
                                <option value="it">Italiano</option>
                                <option value="ur">Urdu</option>
                                <option value="zh_CN">Chinese (Simplified)</option>
+                               <option value="zh_TW">Chinese (Traditional)</option>
                                <option value="de">Deutsch</option>
                                <option value="ja">Japanese</option>
                                <option value="hr">Croatian</option>
                                <option value="cs">Czech</option>
                                <option value="sl">Slovenian</option>
-                               <option value="pl">Polish</option>
                                <option value="ca">Catalan</option>
                                <option value="mk">Macedonian</option>
+                               <option value="fa">Farsi</option>
+                               <option value="ar">Arabic</option>
+                               <option value="pl">Polish</option>
                            </select>
                            <input type="submit" value="Switch">
                         </form>
@@ -118,6 +122,7 @@
 							><li><a href="${loginUrl}it">Italiano</a></li
 							><li><a href="${loginUrl}ur">Urdu</a></li
 							><li><a href="${loginUrl}zh_CN">Chinese (Simplified)</a></li
+                            ><li><a href="${loginUrl}zh_TW">Chinese (Traditional)</a></li
 							><li><a href="${loginUrl}de">Deutsch</a></li
 							><li><a href="${loginUrl}ja">Japanese</a></li
 							><li><a href="${loginUrl}hr">Croatian</a></li
@@ -125,6 +130,8 @@
 							><li><a href="${loginUrl}sl">Slovenian</a></li
                             ><li><a href="${loginUrl}ca">Catalan</a></li
                             ><li><a href="${loginUrl}mk">Macedonian</a></li
+                            ><li><a href="${loginUrl}fa">Farsi</a></li
+                            ><li><a href="${loginUrl}ar">Arabic</a></li
 							><li class="last"><a href="${loginUrl}pl">Polish</a></li
 						></ul>
                      </c:otherwise>
