@@ -117,6 +117,7 @@
 	<bean id="attributeRepository"
 		class="org.jasig.services.persondir.support.ldap.LdapPersonAttributeDao">
 		<property name="contextSource" ref="ldapAuthContextSource" />
+		<!-- # IF USE ldapFullBindHandler -->
   		<property name="baseDN" value="${ldap.fullbind.basedn}" />
   		<property name="requireAllQueryAttributes" value="true" />
   		
@@ -150,6 +151,10 @@
                     <!-- Mise en place du filtrage de services suite à l'alerte de sécurité ESUP du 05/01/2012
                          @see https://issues.jasig.org/browse/CAS-1071
                          @see https://sites.google.com/a/bousquie.fr/jerome/Home/securite-de-cas
+                         
+                         La CONFIGURATION SUIVANTE DOIT ETRE CHANGEE 
+                         DANS cas-toolbox-custom/src/main/webapp/WEB-INF/deployerConfigContext.xml
+                         AVANT QUE LE SERVEUR CAS SOIT MIS EN PRODUCTION
                      -->
                     <bean class="org.jasig.cas.services.RegRegisteredServiceImpl"
                         p:id="1" p:name="Domaine Univ.fr"
@@ -163,6 +168,27 @@
                             <list>
                                 <value>uid</value>
                                 <value>displayName</value>
+                            </list>
+                        </property>
+                    </bean>
+                    
+                    <!--  Autorisation des applications en localhost pour faire des tests -->
+                    <bean class="org.jasig.cas.services.RegRegisteredServiceImpl"
+                        p:id="100"
+                        p:name="localhost"
+                        p:description="Acces CAS en localhost"
+                        p:serviceId="^http://(localhost|127\.0\.0\.1)(:[\d]+)?/.*"
+                        p:enabled="true"
+                        p:ssoEnabled="true"
+                        p:anonymousAccess="false"
+                        p:allowedToProxy="false" >
+                        <property name="allowedAttributes">
+                            <list>
+                                <value>uid</value>
+                                <value>displayName</value>
+                                <value>sn</value>
+                                <value>givenName</value>
+                                <value>eduPersonPrimaryAffiliation</value>
                             </list>
                         </property>
                     </bean>
