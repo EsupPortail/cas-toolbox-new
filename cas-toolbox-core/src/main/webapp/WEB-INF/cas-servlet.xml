@@ -19,6 +19,15 @@
                 <entry key=".*Android.*" value="iphone" />
                 <entry key=".*Safari.*Pre.*" value="iphone" />
                 <entry key=".*Nokia.*AppleWebKit.*" value="iphone" />
+                <entry key=".*SAMSUNG.*" value="iphone" />
+                <entry key=".*BlackBerry.*" value="iphone" />
+                <entry key=".*SAGEM.*" value="iphone" />
+                <entry key=".*Ericsson.*" value="iphone" />
+                <entry key=".*DoCoMo.*" value="iphone" />
+                <entry key=".*Panasonic.*" value="iphone" />
+                <entry key=".*PHILIPS.*" value="iphone" />
+                <entry key=".*Alcatel.*" value="iphone" />
+                <entry key=".*IEMobile.*" value="iphone" />
             </map>
         </property>
     </bean>
@@ -198,7 +207,8 @@
         p:casTicketSuffix="${host.name}">
         <constructor-arg index="0" ref="ticketRegistry" />
     </bean>
-
+	<!-- Sécurisation du formulaire de logout : suppression de la redirection en mettant p:followServiceRedirects="false"
+		 @see https://sites.google.com/a/bousquie.fr/jerome/Home/securite-de-cas -->
 	<bean id="logoutController" class="org.jasig.cas.web.LogoutController"
 		p:centralAuthenticationService-ref="centralAuthenticationService"
 		p:logoutView="casLogoutView"
