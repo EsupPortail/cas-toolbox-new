@@ -42,6 +42,7 @@
 	<bean id="ldapAuthContextSource" class="org.springframework.ldap.core.support.LdapContextSource" lazy-init="true">
 		<!-- Authentification LDAP en anonyme ou avec un compte : anonyme par défaut -->
 		<property name="anonymousReadOnly" value="false" />
+		<!-- # IF USE LdapUsername -->
 <!--
 		<property name="userDn" value="${ldap.userDn}"/>
 	    <property name="password" value="${ldap.bindPasswd}"/>
