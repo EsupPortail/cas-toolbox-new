@@ -53,8 +53,9 @@
 					| need to change this bean declaration (or add additional declarations) to declare a CredentialsToPrincipalResolver that supports the
 					| Credentials you are using.
 					+-->
-				<bean
-					class="org.jasig.cas.authentication.principal.UsernamePasswordCredentialsToPrincipalResolver" />
+				<bean class="org.jasig.cas.authentication.principal.UsernamePasswordCredentialsToPrincipalResolver">
+					<property name="attributeRepository" ref="attributeRepository" />
+				</bean>
 				<!--
 					| HttpBasedServiceCredentialsToPrincipalResolver supports HttpBasedCredentials.  It supports the CAS 2.0 approach of
 					| authenticating services by SSL callback, extracting the callback URL from the Credentials and representing it as a
@@ -114,12 +115,24 @@
 	may go against a database or LDAP server.  The id should remain "attributeRepository" though.
 	 -->
 	<bean id="attributeRepository"
-		class="org.jasig.services.persondir.support.StubPersonAttributeDao">
-		<property name="backingMap">
+		class="org.jasig.services.persondir.support.ldap.LdapPersonAttributeDao">
+		<property name="contextSource" ref="ldapAuthContextSource" />
+  		<property name="baseDN" value="${ldap.fullbind.basedn}" />
+  		<property name="requireAllQueryAttributes" value="true" />
+  		
+  		<property name="queryAttributeMapping">
+		    <map>
+		      <entry key="username" value="uid" />
+		    </map>
+		</property>
+
+		<property name="resultAttributeMapping">
 			<map>
 				<entry key="uid" value="uid" />
 				<entry key="eduPersonAffiliation" value="eduPersonAffiliation" /> 
-				<entry key="groupMembership" value="groupMembership" />
+				<entry key="displayName" value="displayName" />
+				<entry key="sn" value="sn" />
+				<entry key="givenName" value="givenName" />
 			</map>
 		</property>
 	</bean>
@@ -134,6 +147,10 @@
         class="org.jasig.cas.services.InMemoryServiceRegistryDaoImpl">
             <property name="registeredServices">
                 <list>
+                    <!-- Mise en place du filtrage de services suite à l'alerte de sécurité ESUP du 05/01/2012
+                         @see https://issues.jasig.org/browse/CAS-1071
+                         @see https://sites.google.com/a/bousquie.fr/jerome/Home/securite-de-cas
+                     -->
                     <bean class="org.jasig.cas.services.RegisteredServiceImpl">
                         <property name="id" value="0" />
                         <property name="name" value="HTTP" />

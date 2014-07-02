@@ -40,8 +40,20 @@
 	</bean>
 	
 	<bean id="ldapAuthContextSource" class="org.springframework.ldap.core.support.LdapContextSource" lazy-init="true">
+		<!-- Authentification LDAP en anonyme ou avec un compte : anonyme par défaut -->
 		<property name="anonymousReadOnly" value="false" />
-		<property name="pooled" value="false" />
+<!--
+		<property name="userDn" value="${ldap.userDn}"/>
+	    <property name="password" value="${ldap.bindPasswd}"/>
+-->
+	    <property name="pooled" value="${ldap.pooled}"/>
+
+		<!-- Connection à une liste de LDAP (par exemple, annuaire en ldap ou ldaps) ou sur une seule url (ldaps) : plusieurs urls par défaut -->
+<!--
+		<property name="url">
+				<value>${ldap.host.1}</value>
+		</property>
+-->
 		<property name="urls">
 			<list>
 				<value>${ldap.host.1}</value>
@@ -53,6 +65,11 @@
 			  <!-- Three seconds is an eternity to users. -->
 			  <entry key="com.sun.jndi.ldap.connect.timeout" value="${ldap.connect.timeout}" />
 			  <entry key="com.sun.jndi.ldap.read.timeout" value="${ldap.read.timeout}" />
+
+			  <!-- Protocole de sécurité SSL à activer en ldaps -->
+<!--
+			  <entry key="java.naming.security.protocol" value="ssl" />
+-->
 
 			  <!-- Explained at http://download.oracle.com/javase/1.3/docs/api/javax/naming/Context.html#SECURITY_AUTHENTICATION -->
 			  <entry key="java.naming.security.authentication" value="simple" />
