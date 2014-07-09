@@ -1,6 +1,8 @@
 .project
 .classpath
-/.settings
+.settings
+*/.settings
 /bin
+target
 */target/
 
