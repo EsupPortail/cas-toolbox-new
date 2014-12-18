@@ -1,9 +1,20 @@
-.project
 .classpath
+!/.project
+.project
 .settings
-*/.settings
-/bin
 target
-*/target/
+test-output/
+bin/
+*.ipr
+*.iml
+*.iws
+.idea/
+.DS_Store
+.idea
+overlays/
+pom.xml.versionsBackup
+*.log
+
+**/.checkstyle
 
 
