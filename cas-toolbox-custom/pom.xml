@@ -1,43 +1,53 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd ">
-    <parent>
-    	<artifactId>cas-toolbox</artifactId>
-    	<groupId>org.esupportail.cas</groupId>
-    	<version>3.4.12</version>
-  	</parent>
-  	<modelVersion>4.0.0</modelVersion>
-    <groupId>org.esupportail.cas</groupId>
-    <artifactId>cas-toolbox-custom</artifactId>
-    <packaging>war</packaging>
- 
- 	<build>
-    	<filters>
-      		<filter>${base.prefix}config.properties</filter>
-    	</filters>
-    	<plugins>
-    		<plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-war-plugin</artifactId>
-                <configuration>                    
-					<webappDirectory>${deploy.dir}</webappDirectory>
-                </configuration>               
-          	</plugin>
-    	</plugins>     	 
-    </build> 
-    
-    <properties>
-        <base.prefix>../</base.prefix>        
-    </properties>
-    
-    <dependencies>
-        <dependency>
-            <groupId>org.esupportail.cas</groupId>
-            <artifactId>cas-toolbox-core</artifactId>
-            <version>${project.parent.version}</version>
-             <type>war</type>
-            <scope>runtime</scope>
-        </dependency>     
-    </dependencies> 
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd ">
+   <parent>
+      <artifactId>cas-toolbox</artifactId>
+      <groupId>org.esupportail.cas</groupId>
+      <version>3.4.12.1</version>
+   </parent>
+   <modelVersion>4.0.0</modelVersion>
+   <groupId>org.esupportail.cas</groupId>
+   <artifactId>cas-toolbox-custom</artifactId>
+   <packaging>war</packaging>
+   <name>Custom Esup CAS Overlay server</name>
+   <description>Esup CAS-toolbox-new v3: Custom CAS Overlay server</description>
+
+   <build>
+      <!-- finalName>${project.artifactId}</finalName-->
+      <filters>
+         <filter>${base.prefix}config.properties</filter>
+      </filters>
+      <plugins>
+         <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-compiler-plugin</artifactId>
+         </plugin>
+         <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-eclipse-plugin</artifactId>
+         </plugin>
+         <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-war-plugin</artifactId>
+            <configuration>
+               <webappDirectory>${deploy.dir}</webappDirectory>
+            </configuration>
+         </plugin>
+      </plugins>
+   </build>
+
+   <properties>
+      <base.prefix>../</base.prefix>
+   </properties>
+
+   <dependencies>
+      <dependency>
+         <groupId>org.esupportail.cas</groupId>
+         <artifactId>cas-toolbox-core</artifactId>
+         <version>${project.parent.version}</version>
+         <type>war</type>
+         <scope>runtime</scope>
+      </dependency>
+   </dependencies>
 </project>

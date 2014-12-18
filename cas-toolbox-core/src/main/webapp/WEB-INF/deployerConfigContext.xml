@@ -64,8 +64,7 @@
 					| If you are representing services by something more or other than an HTTPS URL whereat they are able to
 					| receive a proxy callback, you will need to change this bean declaration (or add additional declarations).
 					+-->
-				<bean
-					class="org.jasig.cas.authentication.principal.HttpBasedServiceCredentialsToPrincipalResolver" />					
+				<bean class="org.jasig.cas.authentication.principal.HttpBasedServiceCredentialsToPrincipalResolver" />					
 			</list>
 		</property>
 
@@ -82,14 +81,14 @@
 
 	<bean id="handlerList" class="org.springframework.beans.factory.config.ListFactoryBean">
 		<property name="sourceList">
-	      <list>
-	      		<!--
-					| This is the authentication handler that authenticates services by means of callback via SSL, thereby validating
-					| a server side SSL certificate.
-					+-->
-				<bean class="org.jasig.cas.authentication.handler.support.HttpBasedServiceCredentialsAuthenticationHandler"
-					p:httpClient-ref="httpClient" />				
-	      </list>
+		<list>
+			<!--
+				| This is the authentication handler that authenticates services by means of callback via SSL, thereby validating
+				| a server side SSL certificate.
+				+-->
+			<bean class="org.jasig.cas.authentication.handler.support.HttpBasedServiceCredentialsAuthenticationHandler"
+				p:httpClient-ref="httpClient" />
+		  </list>
 		</property>
 	</bean>
 
@@ -104,27 +103,46 @@
 	
 	The name of this should remain "userDetailsService" in order for Spring Security to find it.
 	 -->
-    <!-- <sec:user name="@@THIS SHOULD BE REPLACED@@" password="notused" authorities="ROLE_ADMIN" />-->
+	<!-- <sec:user name="@@THIS SHOULD BE REPLACED@@" password="notused" authorities="ROLE_ADMIN" />-->
 
-    <sec:user-service id="userDetailsService">
-        <sec:user name="${security.useradmin}" password="notused" authorities="ROLE_ADMIN" />
-    </sec:user-service>
+	<sec:user-service id="userDetailsService">
+		<sec:user name="${security.useradmin}" password="notused" authorities="ROLE_ADMIN" />
+	</sec:user-service>
 	
 	<!-- 
 	Bean that defines the attributes that a service may return.  This example uses the Stub/Mock version.  A real implementation
 	may go against a database or LDAP server.  The id should remain "attributeRepository" though.
 	 -->
+	<!-- 
+	Bean that defines the attributes that a service may return.  This example uses the Stub/Mock version.  A real implementation
+	may go against a database or LDAP server.  The id should remain "attributeRepository" though.
+	 -->
+	<!-- # IF USE fileEncAuthHandler or filePlainAuthHandler or simpleTestHandler without LDAP : start -->
+	<bean id="attributeRepository"
+		class="org.jasig.services.persondir.support.StubPersonAttributeDao">
+		<property name="backingMap">
+			<map>
+				<entry key="uid" value="uid" />
+				<entry key="eduPersonAffiliation" value="eduPersonAffiliation" /> 
+				<entry key="displayName" value="displayName" />
+				<entry key="sn" value="sn" />
+				<entry key="givenName" value="givenName" />
+			</map>
+		</property>
+	</bean>
+	<!-- # IF USE fileEncAuthHandler or filePlainAuthHandler or simpleTestHandler without LDAP : stop -->
+
+	<!-- # IF USE ldapFastBindHandler or ldapFullBindHandler : start -->
 	<bean id="attributeRepository"
 		class="org.jasig.services.persondir.support.ldap.LdapPersonAttributeDao">
 		<property name="contextSource" ref="ldapAuthContextSource" />
-		<!-- # IF USE ldapFullBindHandler -->
-  		<property name="baseDN" value="${ldap.fullbind.basedn}" />
-  		<property name="requireAllQueryAttributes" value="true" />
-  		
-  		<property name="queryAttributeMapping">
-		    <map>
-		      <entry key="username" value="uid" />
-		    </map>
+		<property name="baseDN" value="${ldap.fullbind.basedn}" />
+		<property name="requireAllQueryAttributes" value="true" />
+		
+		<property name="queryAttributeMapping">
+			<map>
+			  <entry key="username" value="uid" />
+			</map>
 		</property>
 
 		<property name="resultAttributeMapping">
@@ -137,56 +155,98 @@
 			</map>
 		</property>
 	</bean>
-	
+	<!-- # IF USE ldapFastBindHandler or ldapFullBindHandler : stop -->
+
 	<!-- 
 	Sample, in-memory data store for the ServiceRegistry. A real implementation
 	would probably want to replace this with the JPA-backed ServiceRegistry DAO
 	The name of this bean should remain "serviceRegistryDao".
 	 -->
-	<bean
-		id="serviceRegistryDao"
-        class="org.jasig.cas.services.InMemoryServiceRegistryDaoImpl">
-            <property name="registeredServices">
-                <list>
-                    <!-- Mise en place du filtrage de services suite à l'alerte de sécurité ESUP du 05/01/2012
-                         @see https://issues.jasig.org/browse/CAS-1071
-                         @see https://sites.google.com/a/bousquie.fr/jerome/Home/securite-de-cas
-                         
-                         La CONFIGURATION SUIVANTE DOIT ETRE CHANGEE 
-                         DANS cas-toolbox-custom/src/main/webapp/WEB-INF/deployerConfigContext.xml
-                         AVANT QUE LE SERVEUR CAS SOIT MIS EN PRODUCTION
-                     -->
-                    <bean class="org.jasig.cas.services.RegisteredServiceImpl">
-                        <property name="id" value="0" />
-                        <property name="name" value="HTTP" />
-                        <property name="description" value="Only Allows HTTP Urls" />
-                        <property name="serviceId" value="http://**" />
-                    </bean>
+	<bean id="serviceRegistryDao"
+		class="org.jasig.cas.services.InMemoryServiceRegistryDaoImpl">
+			<property name="registeredServices">
+				<list>
+					<!-- Mise en place du filtrage de services suite à l'alerte de sécurité ESUP du 05/01/2012
+						 @see https://issues.jasig.org/browse/CAS-1071
+						 @see https://sites.google.com/a/bousquie.fr/jerome/Home/securite-de-cas
+						 
+						 La CONFIGURATION SUIVANTE DOIT ETRE CHANGEE 
+						 DANS cas-toolbox-custom/src/main/webapp/WEB-INF/deployerConfigContext.xml
+						 AVANT QUE LE SERVEUR CAS SOIT MIS EN PRODUCTION
+					 -->
 
-                    <bean class="org.jasig.cas.services.RegisteredServiceImpl">
-                        <property name="id" value="1" />
-                        <property name="name" value="HTTPS" />
-                        <property name="description" value="Only Allows HTTPS Urls" />
-                        <property name="serviceId" value="https://**" />
-                    </bean>
+					<bean class="org.jasig.cas.services.RegisteredServiceImpl">
+						<property name="id" value="0" />
+						<property name="name" value="HTTP" />
+						<property name="description" value="Only Allows HTTP Urls" />
+						<property name="serviceId" value="http://**" />
+					</bean>
 
-                    <bean class="org.jasig.cas.services.RegisteredServiceImpl">
-                        <property name="id" value="2" />
-                        <property name="name" value="IMAPS" />
-                        <property name="description" value="Only Allows HTTPS Urls" />
-                        <property name="serviceId" value="imaps://**" />
-                    </bean>
+					<bean class="org.jasig.cas.services.RegisteredServiceImpl">
+						<property name="id" value="1" />
+						<property name="name" value="HTTPS" />
+						<property name="description" value="Only Allows HTTPS Urls" />
+						<property name="serviceId" value="https://**" />
+					</bean>
 
-                    <bean class="org.jasig.cas.services.RegisteredServiceImpl">
-                        <property name="id" value="3" />
-                        <property name="name" value="IMAP" />
-                        <property name="description" value="Only Allows IMAP Urls" />
-                        <property name="serviceId" value="imap://**" />
-                    </bean>
-                </list>
-            </property>
-        </bean>
+					<bean class="org.jasig.cas.services.RegisteredServiceImpl">
+						<property name="id" value="2" />
+						<property name="name" value="IMAPS" />
+						<property name="description" value="Only Allows HTTPS Urls" />
+						<property name="serviceId" value="imaps://**" />
+					</bean>
 
-    <!-- <bean id="auditTrailManager" class="com.github.inspektr.audit.support.Slf4jLoggingAuditTrailManager" /> -->
-    <bean id="auditTrailManager" class="org.esupportail.cas.audit.support.AuthAuditTrailManager" />
+					<bean class="org.jasig.cas.services.RegisteredServiceImpl">
+						<property name="id" value="3" />
+						<property name="name" value="IMAP" />
+						<property name="description" value="Only Allows IMAP Urls" />
+						<property name="serviceId" value="imap://**" />
+					</bean>
+					
+
+<!--
+					<bean class="org.jasig.cas.services.RegRegisteredServiceImpl"
+						p:id="1" p:name="Domaine Univ.fr"
+						p:description="Domaine Univ.fr"
+						p:serviceId="^https?://[^/?#]*\.univ\.fr(:[\d]+)?/.*"
+						p:enabled="true"
+						p:ssoEnabled="true"
+						p:anonymousAccess="false"
+						p:allowedToProxy="false">
+						<property name="allowedAttributes">
+							<list>
+								<value>uid</value>
+								<value>displayName</value>
+							</list>
+						</property>
+					</bean>
+-->
+					<!--  Autorisation des applications en localhost pour faire des tests -->
+					<bean class="org.jasig.cas.services.RegRegisteredServiceImpl"
+						p:id="100"
+						p:name="localhost"
+						p:description="Acces CAS en localhost"
+						p:serviceId="^http://(localhost|127\.0\.0\.1)(:[\d]+)?/.*"
+						p:enabled="true"
+						p:ssoEnabled="true"
+						p:anonymousAccess="false"
+						p:allowedToProxy="false" >
+						<property name="allowedAttributes">
+							<list>
+								<value>uid</value>
+								<value>displayName</value>
+								<value>sn</value>
+								<value>givenName</value>
+								<value>eduPersonPrimaryAffiliation</value>
+							</list>
+						</property>
+					</bean>
+				</list>
+			</property>
+		</bean>
+
+	<bean id="auditTrailManager" class="com.github.inspektr.audit.support.Slf4jLoggingAuditTrailManager" />
+	<!-- # IF USE ESUP stats : start -->
+	<bean id="auditTrailManagerEsup" class="org.esupportail.cas.audit.support.AuthAuditTrailManager" />
+	<!-- # IF USE ESUP stats : stop -->
 </beans>

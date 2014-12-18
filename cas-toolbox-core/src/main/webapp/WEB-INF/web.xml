@@ -3,7 +3,7 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"
 	version="2.4">
-	<display-name>Central Authentication System (CAS) 3.4.12</display-name>
+	<display-name>Central Authentication System (CAS) 3.4.12.1</display-name>
 
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
@@ -132,9 +132,10 @@
 		<load-on-startup>1</load-on-startup>
 	</servlet>
 	
+	<!-- IF USE restful : start-->
 	<servlet>
 	    <servlet-name>restlet</servlet-name>
-	    <servlet-class>com.noelios.restlet.ext.spring.RestletFrameworkServlet</servlet-class>
+        <servlet-class>org.restlet.ext.spring.RestletFrameworkServlet</servlet-class>
 	    <load-on-startup>1</load-on-startup>
 	</servlet>
 	 
@@ -143,6 +144,12 @@
 	    <url-pattern>/REST/*</url-pattern>
 	</servlet-mapping>
 
+    <servlet-mapping>
+        <servlet-name>restlet</servlet-name>
+        <url-pattern>/v1/*</url-pattern>
+    </servlet-mapping>
+    <!-- IF USE restful : end-->
+    
 	<servlet-mapping>
 		<servlet-name>cas</servlet-name>
 		<url-pattern>/login</url-pattern>
@@ -237,6 +244,7 @@
 	<session-config>
 		<!-- Default to 5 minute session timeouts -->
 		<session-timeout>5</session-timeout>
+		<!--session-timeout>${session.timeout}</session-timeout-->
 	</session-config>
 
 	<error-page>

@@ -138,6 +138,7 @@
         <appender-ref ref="authAppender" />
     </logger>
 
+    <!-- Add to log tickets : Don't use with rejectedAppender -->
     <logger name="org.jasig.cas.CentralAuthenticationServiceImpl" additivity="true">
         <level value="INFO" />
         <appender-ref ref="ticketsAppender" />
@@ -149,7 +150,7 @@
         password in the log file.  If you are sharing your log files, it is recommend you selectively
         apply DEBUG level logging on a an org.springframework.* package level (i.e. org.springframework.dao)
     -->
-    
+
     <logger name="org.springframework">
         <level value="ERROR" />
     </logger>
@@ -183,7 +184,6 @@
 
     <logger name="com.github.inspektr.audit.support.Slf4jLoggingAuditTrailManager">
         <level value="INFO" />
-        <appender-ref ref="cas" />
     </logger>
 
     <!--
