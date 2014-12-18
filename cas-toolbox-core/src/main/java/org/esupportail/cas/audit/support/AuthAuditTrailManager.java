@@ -5,8 +5,8 @@
  *  you may not use this file except in compliance with the License.
  *  You may obtain a copy of the License at
  *  
- *      http://www.apache.org/licenses/LICENSE-2.0
- *      
+ *	  http://www.apache.org/licenses/LICENSE-2.0
+ *	  
  *  Unless required by applicable law or agreed to in writing, software
  *  distributed under the License is distributed on an "AS IS" BASIS,
  *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -22,14 +22,15 @@ import com.github.inspektr.audit.AuditActionContext;
 
 
 public final class AuthAuditTrailManager implements AuditTrailManager {
-    
-	private final Logger log = LoggerFactory.getLogger(this.getClass());
 	
-    public void record(final AuditActionContext auditActionContext) {
-    	if(("AUTHENTICATION_SUCCESS").equals(auditActionContext.getActionPerformed()) || ("AUTHENTICATION_FAILED").equals(auditActionContext.getActionPerformed())) {
-    		if(auditActionContext.getPrincipal().startsWith("[username:")) {
-    			log.info(auditActionContext.getWhenActionWasPerformed() + " - " + auditActionContext.getActionPerformed() + " for '"+auditActionContext.getPrincipal() + "' from '" + auditActionContext.getClientIpAddress() + "'");
-    		}
-    	}
-    }
+	private final Logger log = LoggerFactory.getLogger(this.getClass());
+
+	
+	public void record(final AuditActionContext auditActionContext) {
+		if(("AUTHENTICATION_SUCCESS").equals(auditActionContext.getActionPerformed()) || ("AUTHENTICATION_FAILED").equals(auditActionContext.getActionPerformed())) {
+			if(auditActionContext.getPrincipal().startsWith("[username:")) {
+				log.info(auditActionContext.getWhenActionWasPerformed() + " - " + auditActionContext.getActionPerformed() + " for '"+auditActionContext.getPrincipal() + "' from '" + auditActionContext.getClientIpAddress() + "'");
+			}
+		}
+	}
 }

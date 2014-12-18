@@ -59,5 +59,5 @@ public class AccountLock {
 	public void setAttempts(int attempts) {
 		this.attempts = attempts;
 	}
-	
+
 }

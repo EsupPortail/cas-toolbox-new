@@ -8,14 +8,14 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 
-public class HandlersDiscover implements ApplicationContextAware,InitializingBean  {
+public class HandlersDiscover implements ApplicationContextAware,InitializingBean {
 	private String[] handlersId;
 	private List<AuthenticationHandler> listToAdd;
 	private ApplicationContext context;
 	
-    public HandlersDiscover() {
-    }
- 
+	public HandlersDiscover() {
+	}
+
 	public void setHandlersId(String[] handlersId) {
 		this.handlersId = handlersId;
 	}
@@ -25,17 +25,16 @@ public class HandlersDiscover implements ApplicationContextAware,InitializingBea
 		this.listToAdd = listToAdd;
 	}
 
-	public void setApplicationContext(ApplicationContext context)
-			throws BeansException {		
-		this.context = context;		
+	public void setApplicationContext(ApplicationContext context) throws BeansException {
+		this.context = context;
 	}
 
 	public void afterPropertiesSet() throws Exception {
 		for (int i =0; i<handlersId.length; i++){
 			String beanId = handlersId[i];
-			AuthenticationHandler handlerBean = (AuthenticationHandler) context.getBean(beanId);			
-			listToAdd.add(handlerBean);			
+			AuthenticationHandler handlerBean = (AuthenticationHandler) context.getBean(beanId);
+			listToAdd.add(handlerBean);
 		}
 	}
-	
+
 }

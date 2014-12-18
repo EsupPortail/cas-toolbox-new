@@ -31,53 +31,24 @@ public final class InMemoryStatisticManager implements AuditTrailManager {
 	
 	public static Map<String, Integer> statsVal = Collections.synchronizedMap(new HashMap<String, Integer>());
 	
-    public void record(final AuditActionContext auditActionContext) {
-    	if(enabled) {
-	    	String what = auditActionContext.getActionPerformed();
+	public void record(final AuditActionContext auditActionContext) {
+		if(enabled) {
+			String what = auditActionContext.getActionPerformed();
 			
-	    	if(!statsVal.containsKey(what)) {
-				statsVal.put(what , 0);					
+			if(!statsVal.containsKey(what)) {
+				statsVal.put(what , 0);
 			}
-	    	int previousVal = statsVal.get(what);
+			int previousVal = statsVal.get(what);
 			int newVal = previousVal + 1;
 			statsVal.put(what , newVal);	
-    	}
-    }
-    
-    public void setEnabled(boolean enabled) {
-		this.enabled = enabled;
+		}
 	}
-    
-    public static boolean isEnabled() {
+
+	public void setEnabled(boolean enabled) {
+		InMemoryStatisticManager.enabled = enabled;
+	}
+
+	public static boolean isEnabled() {
 		return enabled;
 	}
 }
-
-/*import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.inspektr.statistics.StatisticManager;
-import org.inspektr.statistics.StatisticActionContext;
-
-public final class InMemoryStatisticManager implements StatisticManager {
-	
-	private final Log log = LogFactory.getLog(this.getClass());
-	
-	public static Map<String, Integer> statsVal = Collections.synchronizedMap(new HashMap<String, Integer>());
-	
-	public final void recalculate(final StatisticActionContext statisticActionContext) {
-		StatisticActionContext context = statisticActionContext;
-		String what = context.getWhat();
-		
-		if(!statsVal.containsKey(what)) {
-			statsVal.put(what , 0);					
-		}
-		int previousVal = statsVal.get(what);
-		int newVal = previousVal + 1;
-		statsVal.put(what , newVal);				
-	}		
-}
-*/

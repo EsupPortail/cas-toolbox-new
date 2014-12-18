@@ -5,8 +5,8 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import org.esupportail.cas.services.blockAttack.AccountLock;
 
@@ -17,7 +17,7 @@ public class AccountLockingServiceMemory implements AccountLockingService, Runna
 	public long cleanExecution = 60 * 1000;
 	public int attemptsAllowed = 3;
 	
-	protected static Log log = LogFactory.getLog(AccountLockingService.class);
+	protected final static Logger log = LoggerFactory.getLogger(AccountLockingService.class);
 	
 	private Thread t = null;
 	private boolean running = true;

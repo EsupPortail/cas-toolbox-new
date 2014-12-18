@@ -5,8 +5,8 @@
  */
 package org.esupportail.cas.services.blockAttack;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -18,7 +18,8 @@ import org.jasig.cas.authentication.principal.UsernamePasswordCredentials;
 
 @Aspect
 public final class BlockAttackAspect{
-	protected static Log log = LogFactory.getLog(BlockAttackAspect.class);
+	protected static Logger log = LoggerFactory.getLogger(BlockAttackAspect.class);
+	
 	private static final String CODE = "error.authentication.credentials.locked";
 	private AccountLockingService accountLockingService ;
 	
@@ -73,7 +74,6 @@ public final class BlockAttackAspect{
 	public boolean isActiveWait() {
 		return activeWait;
 	}
-
 
 	public void setActiveWait(boolean activeWait) {
 		this.activeWait = activeWait;
