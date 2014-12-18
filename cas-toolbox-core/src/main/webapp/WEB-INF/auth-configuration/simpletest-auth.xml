@@ -15,7 +15,7 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:p="http://www.springframework.org/schema/p"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
 	
 	<!--
 		| This is the authentication handler declaration that every CAS deployer will need to change before deploying CAS 
@@ -25,5 +25,5 @@
 		| edu.someschool.its.cas.MySpecialHandler here, or you might use one of the handlers provided in the adaptors modules.
 		+-->
 	<bean id="simpleTestHandler"
-		class="org.jasig.cas.authentication.handler.support.SimpleTestUsernamePasswordAuthenticationHandler" lazy-init="true"/>					
+		class="org.jasig.cas.authentication.handler.support.SimpleTestUsernamePasswordAuthenticationHandler" lazy-init="true"/>
 </beans>

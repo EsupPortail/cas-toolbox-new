@@ -9,13 +9,13 @@
 		of the Servlet context if you have options that are specific to a tier (i.e. test vs. production) so that the WAR file 
 		can be moved between tiers without modification.
 	</description>
-       
+	
 	<bean id="propertyPlaceholderConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
 		 <property name="locations">
-      		<list>
-      			<value>/WEB-INF/cas.properties</value>
-      			<value>/WEB-INF/esup.properties</value>
-      		</list>
-      	</property>
+			<list>
+				<value>/WEB-INF/cas.properties</value>
+				<value>/WEB-INF/esup.properties</value>
+			</list>
+		</property>
 	</bean>
 </beans>
