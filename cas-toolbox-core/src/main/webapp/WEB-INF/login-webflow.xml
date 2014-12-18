@@ -68,10 +68,11 @@
 	</action-state>
 	
 	<action-state id="sendTicketGrantingTicket">
-        <evaluate expression="sendTicketGrantingTicketAction" />
+		<evaluate expression="sendTicketGrantingTicketAction" />
 		<!-- <transition to="serviceCheck" /> -->
-		<!--  IF USE ESUP traceMe -->			
+		<!--  IF USE ESUP traceMe : start -->
 		<transition to="putTraceMe" />
+		<!--  IF USE ESUP traceMe : stop -->
 	</action-state>
 
 	<!--  IF USE ESUP traceMe -->		
