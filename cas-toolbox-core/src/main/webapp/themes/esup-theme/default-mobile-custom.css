@@ -107,7 +107,9 @@ label{
 }
 
 .check label {
-	display: inline; 	
+	display: inline;
+	vertical-align: middle;
+	font-size: 70%;	
 }
 
 
@@ -116,7 +118,7 @@ label{
 
 
 .info, .errors, .success { text-align:center; min-height:27px; margin-bottom:5px; background: #fed; }
-.info { 	border: 1px dotted 008; color: #008;}
+.info { border: 1px dotted 008; color: #008;}
 .errors{ border: 1px dotted #d21033; color: #d21033;}
 .success{ border: 1px dotted #390; color: #390;}
 
