@@ -4,14 +4,14 @@
    <parent>
       <artifactId>cas-toolbox</artifactId>
       <groupId>org.esupportail.cas</groupId>
-      <version>3.4.12.1</version>
+      <version>4.0.0</version>
    </parent>
    <modelVersion>4.0.0</modelVersion>
    <groupId>org.esupportail.cas</groupId>
    <artifactId>cas-toolbox-custom</artifactId>
    <packaging>war</packaging>
    <name>Custom Esup CAS Overlay server</name>
-   <description>Esup CAS-toolbox-new v3: Custom CAS Overlay server</description>
+   <description>Esup CAS-toolbox-new v4: Custom CAS Overlay server</description>
 
    <build>
       <!-- finalName>${project.artifactId}</finalName-->

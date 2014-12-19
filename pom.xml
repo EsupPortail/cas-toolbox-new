@@ -5,16 +5,16 @@
    <groupId>org.esupportail.cas</groupId>
    <artifactId>cas-toolbox</artifactId>
    <packaging>pom</packaging>
-   <version>3.4.12.1</version>
-   <name>Esup CAS-toolbox-new v3</name>
-   <description>Esup CAS-toolbox-new v3</description>
+   <version>4.0.0</version>
+   <name>Esup CAS-toolbox-new v4</name>
+   <description>Esup CAS-toolbox-new v4</description>
 
    <organization>
       <name>Esup Portail</name>
    </organization>
 
    <properties>
-      <cas.version>3.4.12.1</cas.version>
+      <cas.version>4.0.0</cas.version>
       
       <base.prefix></base.prefix>
       <server.uri>/cas</server.uri>
@@ -26,12 +26,10 @@
       <maven.compiler.source>1.6</maven.compiler.source>
       <maven.compiler.target>1.6</maven.compiler.target>
 
-      <!-- restlet.version>1.1.10</restlet.version-->
-      <restlet.version>2.2.1</restlet.version>
-      <aspectj.version>1.6.2</aspectj.version>
+      <aspectj.version>1.7.2</aspectj.version>
       <commons-lang.version>2.5</commons-lang.version>
 
-      <slf4j.version>1.5.8</slf4j.version>
+      <slf4j.version>1.7.5</slf4j.version>
 
       <servlet.api.version>2.5</servlet.api.version>
    </properties>
@@ -61,19 +59,13 @@
          <type>jar</type>
          <scope>runtime</scope>
       </dependency>
-      <!--dependency>
+      <!-- IF USE restful : start -->
+      <dependency>
          <groupId>org.jasig.cas</groupId>
          <artifactId>cas-server-integration-restlet</artifactId>
-         <version>4.0.0</version>
-         <type>jar</type>
-         <scope>compile</scope>
-         <exclusions>
-            <exclusion>
-               <artifactId>spring-beans</artifactId>
-               <groupId>org.springframework</groupId>
-            </exclusion>
-         </exclusions>
-      </dependency-->
+         <version>${cas.version}</version>
+      </dependency>
+      <!-- IF USE restful : stop -->
       <dependency>
          <groupId>org.jasig.cas</groupId>
          <artifactId>cas-server-support-generic</artifactId>
@@ -155,6 +147,30 @@
       </dependency>
 -->
 
+      <!-- CAS SAML support -->
+      <dependency>
+         <groupId>org.jasig.cas</groupId>
+         <artifactId>cas-server-support-saml</artifactId>
+         <version>${cas.version}</version>
+      </dependency>
+
+      <!-- CAS security filter -->
+      <dependency>
+        <groupId>org.jasig.cas</groupId>
+        <artifactId>cas-server-security-filter</artifactId>
+        <version>1.0.0</version>
+        <scope>runtime</scope>
+      </dependency>
+
+      <!-- CAS services management -->
+      <dependency>
+         <groupId>org.jasig.cas</groupId>
+         <artifactId>cas-management-webapp</artifactId>
+         <version>${cas.version}</version>
+         <type>war</type>
+         <scope>runtime</scope>
+      </dependency>
+
       <!-- TraceMeAction.java dependency -->
       <dependency>
          <groupId>javax.servlet</groupId>
@@ -162,43 +178,12 @@
          <version>${servlet.api.version}</version>
          <scope>compile</scope>
       </dependency>
-
-      <!-- IF USE restful : start -->
+      <!-- org.jasig.cas.web.support.CookieRetrievingCookieGenerator -->
       <dependency>
-         <groupId>org.restlet.jee</groupId>
-         <artifactId>org.restlet</artifactId>
-         <version>${restlet.version}</version>
+         <groupId>org.jasig.cas</groupId>
+         <artifactId>cas-server-webapp-support</artifactId>
+         <version>${cas.version}</version>
       </dependency>
-      <dependency>
-         <groupId>org.restlet.jee</groupId>
-         <artifactId>org.restlet.ext.spring</artifactId>
-         <version>${restlet.version}</version>
-           <exclusions>
-             <exclusion>
-                 <groupId>org.springframework</groupId>
-                 <artifactId>spring-asm</artifactId>
-             </exclusion>
-             <exclusion>
-                 <groupId>org.springframework</groupId>
-                 <artifactId>spring-web</artifactId>
-             </exclusion>
-             <exclusion>
-                 <groupId>org.springframework</groupId>
-                 <artifactId>spring-expression</artifactId>
-             </exclusion>
-         </exclusions>
-      </dependency>
-      <dependency>
-         <groupId>org.restlet.jee</groupId>
-         <artifactId>org.restlet.ext.servlet</artifactId>
-         <version>${restlet.version}</version>
-      </dependency>
-      <dependency>
-         <groupId>org.restlet.jee</groupId>
-         <artifactId>org.restlet.ext.slf4j</artifactId>
-         <version>${restlet.version}</version>
-      </dependency>
-      <!-- IF USE restful : stop -->
 
       <!-- Unify Logs configurations -->
       <dependency>
