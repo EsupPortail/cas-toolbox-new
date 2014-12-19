@@ -113,11 +113,8 @@
 	Bean that defines the attributes that a service may return.  This example uses the Stub/Mock version.  A real implementation
 	may go against a database or LDAP server.  The id should remain "attributeRepository" though.
 	 -->
-	<!-- 
-	Bean that defines the attributes that a service may return.  This example uses the Stub/Mock version.  A real implementation
-	may go against a database or LDAP server.  The id should remain "attributeRepository" though.
-	 -->
 	<!-- # IF USE fileEncAuthHandler or filePlainAuthHandler or simpleTestHandler without LDAP : start -->
+<!--
 	<bean id="attributeRepository"
 		class="org.jasig.services.persondir.support.StubPersonAttributeDao">
 		<property name="backingMap">
@@ -130,6 +127,7 @@
 			</map>
 		</property>
 	</bean>
+-->
 	<!-- # IF USE fileEncAuthHandler or filePlainAuthHandler or simpleTestHandler without LDAP : stop -->
 
 	<!-- # IF USE ldapFastBindHandler or ldapFullBindHandler : start -->
