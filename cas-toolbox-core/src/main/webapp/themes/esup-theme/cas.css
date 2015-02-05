@@ -233,10 +233,10 @@ form label.boolean {
 	margin: 0 auto;
 	clear: both; 
 	z-index: -100;
-	width: 380px !important;
+	width: 385px !important;
 }
 
-#footer a#jasig {
+#footer a#logo {
 	float:left; 
 	clear:both; 
 	display: block; 
