@@ -5,15 +5,69 @@
    <parent>
       <artifactId>cas-toolbox</artifactId>
       <groupId>org.esupportail.cas</groupId>
-      <version>4.0.0</version>
+      <version>4.0.1</version>
    </parent>
    <modelVersion>4.0.0</modelVersion>
-   <groupId>org.esupportail.cas</groupId>
    <artifactId>cas-toolbox-core</artifactId>
+   <groupId>org.esupportail.cas</groupId>
    <packaging>war</packaging>
    <name>Esup CAS Overlay server</name>
-   <description>Esup CAS-toolbox-new v3: CAS Overlay server</description>
-   
+   <description>Esup CAS-toolbox-new v4: CAS Overlay server</description>
+
+   <dependencies>
+       <dependency>
+           <groupId>org.jasig.cas</groupId>
+           <artifactId>cas-server-webapp</artifactId>
+           <type>war</type>
+           <scope>runtime</scope>
+       </dependency>
+       <!-- dependency>
+           <groupId>org.jasig.cas</groupId>
+           <artifactId>cas-server-integration-memcached</artifactId>
+       </dependency-->
+       <!-- IF USE restful : start -->
+       <dependency>
+           <groupId>org.jasig.cas</groupId>
+           <artifactId>cas-server-integration-restlet</artifactId>
+       </dependency>
+       <!-- IF USE restful : stop -->
+       <!--dependency>
+           <groupId>org.jasig.cas</groupId>
+           <artifactId>cas-server-support-generic</artifactId>
+       </dependency-->
+       <dependency>
+           <groupId>org.jasig.cas</groupId>
+           <artifactId>cas-server-support-ldap</artifactId>
+       </dependency>
+       <!-- If USE SAML : start -->
+       <dependency>
+           <groupId>org.jasig.cas</groupId>
+           <artifactId>cas-server-support-saml</artifactId>
+           <!-- exclusions>
+               <exclusion>
+                   <groupId>org.bouncycastle</groupId>
+                   <artifactId>bcprov-jdk15</artifactId>
+               </exclusion>
+           </exclusions-->
+        </dependency>
+        <!-- If USE SAML : stop -->
+        <!-- IF USE ESUP TraceMe : start -->
+        <!-- org.jasig.cas.web.support.CookieRetrievingCookieGenerator -->
+        <dependency>
+           <groupId>org.jasig.cas</groupId>
+           <artifactId>cas-server-webapp-support</artifactId>
+        </dependency>
+		<dependency>
+           <groupId>org.springframework</groupId>
+           <artifactId>spring-web</artifactId>
+        </dependency>
+		<dependency>
+           <groupId>javax.servlet</groupId>
+           <artifactId>servlet-api</artifactId>
+        </dependency>
+        <!-- IF USE ESUP TraceMe : stop -->
+    </dependencies>
+
    <build>
       <filters>
          <filter>${base.prefix}config.properties</filter>
