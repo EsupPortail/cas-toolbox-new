@@ -9,7 +9,7 @@ import javax.validation.constraints.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import org.jasig.cas.authentication.principal.UsernamePasswordCredentials;
+import org.jasig.cas.authentication.UsernamePasswordCredential;
 import org.jasig.cas.util.UniqueTicketIdGenerator;
 import org.jasig.cas.web.support.CookieRetrievingCookieGenerator;
 import org.jasig.cas.web.support.WebUtils;
@@ -34,13 +34,18 @@ public final class TraceMeAction extends AbstractAction {
 	protected Event doExecute(final RequestContext context) {
 		if(enabled) {
 			String id = traceMeUniqueIdGenerator.getNewTicketId("TRACE");
-			UsernamePasswordCredentials userCreds = (UsernamePasswordCredentials) context.getFlowScope().get("credentials");
+			UsernamePasswordCredential userCreds = (UsernamePasswordCredential) context.getFlowScope().get("credential");
 			
 			this.traceMeCookieGenerator.addCookie(
 					WebUtils.getHttpServletRequest(context), 
 					WebUtils.getHttpServletResponse(context), id);
 
-			LOG.info(id + ":" + userCreds.getUsername());
+			if(userCreds != null) {
+				LOG.info(id + ":" + userCreds.getUsername());
+			} else {
+				LOG.error(id + ":NULL");
+			}
+				
 		}
 		return success();
 	}
