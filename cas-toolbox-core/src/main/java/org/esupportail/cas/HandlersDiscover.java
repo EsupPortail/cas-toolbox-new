@@ -1,17 +1,29 @@
 package org.esupportail.cas;
 
-import java.util.List;
+import java.util.Map;
 
-import org.jasig.cas.authentication.handler.AuthenticationHandler;
+import javax.validation.constraints.NotNull;
+
+
+import org.jasig.cas.authentication.AuthenticationHandler;
+import org.jasig.cas.authentication.principal.PrincipalResolver;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 
 public class HandlersDiscover implements ApplicationContextAware,InitializingBean {
+	@NotNull
 	private String[] handlersId;
-	private List<AuthenticationHandler> listToAdd;
+	@NotNull
+	private String[] resolversId;
+	@NotNull
+	private String defaultResolverId;
+	@NotNull
+	private Map<AuthenticationHandler,PrincipalResolver> mapToAdd;
+
 	private ApplicationContext context;
+
 	
 	public HandlersDiscover() {
 	}
@@ -20,9 +32,16 @@ public class HandlersDiscover implements ApplicationContextAware,InitializingBea
 		this.handlersId = handlersId;
 	}
 
-
-	public void setListToAdd(List<AuthenticationHandler> listToAdd) {
-		this.listToAdd = listToAdd;
+	public void setResolversId(String[] resolversId) {
+		this.resolversId = resolversId;
+	}
+	
+	public void setDefaultResolverId(String defaultResolverId) {
+		this.defaultResolverId = defaultResolverId;
+	}
+	
+	public void setMapToAdd(Map<AuthenticationHandler,PrincipalResolver> mapToAdd) {
+		this.mapToAdd = mapToAdd;
 	}
 
 	public void setApplicationContext(ApplicationContext context) throws BeansException {
@@ -30,10 +49,17 @@ public class HandlersDiscover implements ApplicationContextAware,InitializingBea
 	}
 
 	public void afterPropertiesSet() throws Exception {
-		for (int i =0; i<handlersId.length; i++){
-			String beanId = handlersId[i];
-			AuthenticationHandler handlerBean = (AuthenticationHandler) context.getBean(beanId);
-			listToAdd.add(handlerBean);
+		for (int i =0 ; i< handlersId.length ; i++) {
+			String handlerBeanId = handlersId[i];
+			String resolverBeanId;
+			if(i > resolversId.length) {
+				resolverBeanId = defaultResolverId;
+			} else {
+				resolverBeanId = resolversId[i];
+			}
+			AuthenticationHandler handlerBean = (AuthenticationHandler) context.getBean(handlerBeanId);
+			PrincipalResolver resolverBean = (PrincipalResolver) context.getBean(resolverBeanId);
+			mapToAdd.put(handlerBean, resolverBean);
 		}
 	}
 

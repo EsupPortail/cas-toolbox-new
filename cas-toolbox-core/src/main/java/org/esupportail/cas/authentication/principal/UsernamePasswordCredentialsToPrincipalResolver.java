@@ -5,38 +5,40 @@
  */
 package org.esupportail.cas.authentication.principal;
 
-import org.jasig.cas.authentication.principal.AbstractPersonDirectoryCredentialsToPrincipalResolver;
-import org.jasig.cas.authentication.principal.UsernamePasswordCredentials;
-import org.jasig.cas.authentication.principal.Credentials;
+//import org.jasig.cas.authentication.AbstractPersonDirectoryCredentialsToPrincipalResolver;
+import org.jasig.cas.authentication.principal.PersonDirectoryPrincipalResolver;
+import org.jasig.cas.authentication.UsernamePasswordCredential;
+import org.jasig.cas.authentication.Credential;
 
 /**
- * Implementation of CredentialsToPrincipalResolver for Credentials based on
+ * Implementation of CredentialsToPrincipalResolver for Credential based on
  * UsernamePasswordCredentials when a SimplePrincipal (username only) is
  * sufficient.
  * <p>
- * Implementation extracts the username from the Credentials provided and
+ * Implementation extracts the username from the Credential provided and
  * constructs a new SimplePrincipal with the unique id set to the username.
  * </p>
  * 
  * @author Scott Battaglia
- * @version $Revision: 1.2 $ $Date: 2007/01/22 20:35:26 $
+ * @author Ludovic Auxepaules
+ * @version $Revision: 1.3 $ $Date: 2014/12/19 $
  * @since 3.0
  * @see org.jasig.cas.authentication.principal.SimplePrincipal
  */
 public final class UsernamePasswordCredentialsToPrincipalResolver extends
-	AbstractPersonDirectoryCredentialsToPrincipalResolver {
+PersonDirectoryPrincipalResolver {
 
-	protected String extractPrincipalId(final Credentials credentials) {
-		final UsernamePasswordCredentials usernamePasswordCredentials = (UsernamePasswordCredentials) credentials;
-		return usernamePasswordCredentials.getUsername().toLowerCase().trim();
+	protected String extractPrincipalId(final Credential credential) {
+		final UsernamePasswordCredential usernamePasswordCredential = (UsernamePasswordCredential) credential;
+		return usernamePasswordCredential.getUsername().toLowerCase().trim();
 	}
 
 	/**
-	 * Return true if Credentials are UsernamePasswordCredentials, false
+	 * Return true if Credential are UsernamePasswordCredential, false
 	 * otherwise.
 	 */
-	public boolean supports(final Credentials credentials) {
-		return credentials != null
-			&& UsernamePasswordCredentials.class.isAssignableFrom(credentials.getClass());
+	public boolean supports(final Credential credential) {
+		return credential != null
+			&& UsernamePasswordCredential.class.isAssignableFrom(credential.getClass());
 	}
 }
