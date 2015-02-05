@@ -13,7 +13,7 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.esupportail.cas.services.blockAttack.AccountLockingService;
 import org.jasig.cas.authentication.handler.BadCredentialsAuthenticationException;
-import org.jasig.cas.authentication.principal.UsernamePasswordCredentials;
+import org.jasig.cas.authentication.UsernamePasswordCredential;
 
 
 @Aspect
@@ -31,7 +31,7 @@ public final class BlockAttackAspect{
 	
 	
 	@Around("inExecute() && args(credentials,..)")
-	public Object AroundExecute(ProceedingJoinPoint pjp, UsernamePasswordCredentials credentials) throws Throwable {
+	public Object AroundExecute(ProceedingJoinPoint pjp, UsernamePasswordCredential credentials) throws Throwable {
 		if(!enabled) {
 			return pjp.proceed();
 		}

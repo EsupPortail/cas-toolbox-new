@@ -32,5 +32,6 @@ public final class AuthAuditTrailManager implements AuditTrailManager {
 				log.info(auditActionContext.getWhenActionWasPerformed() + " - " + auditActionContext.getActionPerformed() + " for '"+auditActionContext.getPrincipal() + "' from '" + auditActionContext.getClientIpAddress() + "'");
 			}
 		}
+			log.info(auditActionContext.getWhenActionWasPerformed() + " - " + auditActionContext.getActionPerformed() + " for '"+auditActionContext.getPrincipal() + "' from '" + auditActionContext.getClientIpAddress() + "'");
 	}
 }
