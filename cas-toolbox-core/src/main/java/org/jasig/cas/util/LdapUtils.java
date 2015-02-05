@@ -14,12 +14,13 @@ import javax.naming.directory.DirContext;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+//import org.springframework.ldap.core.LdapEncoder;
 
 /**
  * Utilities related to LDAP functions.
  * 
  * @author Scott Battaglia
- * @version $Revision: 21765 $ $Date: 2010-09-25 22:03:08 -0400 (Sat, 25 Sep 2010) $
+ * @version $Revision $Date$
  * @since 3.0
  */
 public final class LdapUtils {
@@ -49,9 +50,9 @@ public final class LdapUtils {
         newUserName = newUserName.replaceAll("\\(", "");
         newUserName = newUserName.replaceAll("\\)", "");
         
-        properties.put("%u", userName.replace("\\", "\\\\"));
+        properties.put("%u", newUserName.replace("\\", "\\\\"));
 
-        userDomain = userName.split("@");
+        userDomain = newUserName.split("@");
 
         properties.put("%U", userDomain[0]);
 
@@ -68,6 +69,7 @@ public final class LdapUtils {
 
         for (final String key : properties.keySet()) {
             final String value = properties.get(key);
+            //final String value = LdapEncoder.filterEncode(properties.get(key));
             newFilter = newFilter.replaceAll(key, Matcher.quoteReplacement(value));
         }
 
