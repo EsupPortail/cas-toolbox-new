@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd ">
    <parent>
       <artifactId>cas-toolbox</artifactId>
       <groupId>org.esupportail.cas</groupId>
-      <version>4.0.0</version>
+      <version>4.0.1</version>
    </parent>
    <modelVersion>4.0.0</modelVersion>
-   <groupId>org.esupportail.cas</groupId>
    <artifactId>cas-toolbox-custom</artifactId>
+   <groupId>org.esupportail.cas</groupId>
    <packaging>war</packaging>
    <name>Custom Esup CAS Overlay server</name>
    <description>Esup CAS-toolbox-new v4: Custom CAS Overlay server</description>
 
    <build>
-      <!-- finalName>${project.artifactId}</finalName-->
       <filters>
          <filter>${base.prefix}config.properties</filter>
       </filters>

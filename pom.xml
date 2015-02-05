@@ -5,7 +5,7 @@
    <groupId>org.esupportail.cas</groupId>
    <artifactId>cas-toolbox</artifactId>
    <packaging>pom</packaging>
-   <version>4.0.0</version>
+   <version>4.0.1</version>
    <name>Esup CAS-toolbox-new v4</name>
    <description>Esup CAS-toolbox-new v4</description>
 
@@ -14,7 +14,7 @@
    </organization>
 
    <properties>
-      <cas.version>4.0.0</cas.version>
+      <cas.version>4.0.1</cas.version>
       
       <base.prefix></base.prefix>
       <server.uri>/cas</server.uri>
@@ -31,20 +31,26 @@
 
       <slf4j.version>1.7.5</slf4j.version>
 
+      <spring.version>3.2.6.RELEASE</spring.version>
+      <spring.security.version>3.2.0.RELEASE</spring.security.version>
+
       <servlet.api.version>2.5</servlet.api.version>
    </properties>
 
    <modules>
       <module>cas-toolbox-core</module>
       <module>cas-toolbox-custom</module>
+      <module>cas-toolbox-management</module>
    </modules>
 
+  <dependencyManagement>
    <dependencies>
         <dependency>
             <groupId>org.jasig.cas</groupId>
             <artifactId>cas-server-core</artifactId>
             <version>${project.version}</version>
         </dependency>
+
       <dependency>
          <groupId>org.jasig.cas</groupId>
          <artifactId>cas-server-webapp</artifactId>
@@ -52,20 +58,45 @@
          <type>war</type>
          <scope>runtime</scope>
       </dependency>
+
       <dependency>
+         <groupId>org.jasig.cas</groupId>
+         <artifactId>cas-management-webapp</artifactId>
+         <version>${cas.version}</version>
+         <type>war</type>
+         <scope>runtime</scope>
+      </dependency>
+
+      <!--dependency>
          <groupId>org.jasig.cas</groupId>
          <artifactId>cas-server-integration-memcached</artifactId>
          <version>${cas.version}</version>
          <type>jar</type>
          <scope>runtime</scope>
-      </dependency>
+      </dependency-->
+
       <!-- IF USE restful : start -->
+      <!--  spring-web conflicts 3.0.5 and 3.2 -->
       <dependency>
          <groupId>org.jasig.cas</groupId>
          <artifactId>cas-server-integration-restlet</artifactId>
          <version>${cas.version}</version>
+         <type>jar</type>
+         <scope>runtime</scope>
+         <exclusions>
+           <exclusion>
+              <artifactId>spring-web</artifactId>
+              <groupId>org.springframework</groupId>
+           </exclusion>
+           <exclusion>
+              <groupId>commons-logging</groupId>
+              <artifactId>commons-logging</artifactId>
+           </exclusion>
+         </exclusions>
       </dependency>
       <!-- IF USE restful : stop -->
+
+      <!-- FileHandler -->
       <dependency>
          <groupId>org.jasig.cas</groupId>
          <artifactId>cas-server-support-generic</artifactId>
@@ -73,6 +104,7 @@
          <type>jar</type>
          <scope>runtime</scope>
       </dependency>
+
       <dependency>
          <groupId>org.jasig.cas</groupId>
          <artifactId>cas-server-support-ldap</artifactId>
@@ -80,6 +112,39 @@
          <type>jar</type>
          <scope>runtime</scope>
       </dependency>
+
+	<!-- If USE SAML : start -->
+      <dependency>
+         <groupId>org.jasig.cas</groupId>
+         <artifactId>cas-server-support-saml</artifactId>
+         <version>${cas.version}</version>
+         <exclusions>
+           <exclusion>
+              <artifactId>commons-lang</artifactId>
+              <groupId>commons-lang</groupId>
+           </exclusion>
+         </exclusions>
+      </dependency>
+	<!-- If USE SAML : stop -->
+
+      <!-- IF USE ESUP TraceMe : start -->
+      <!-- org.jasig.cas.web.support.CookieRetrievingCookieGenerator -->
+      <dependency>
+         <groupId>org.jasig.cas</groupId>
+         <artifactId>cas-server-webapp-support</artifactId>
+         <version>${cas.version}</version>
+         <type>jar</type>
+         <scope>compile</scope>
+         <exclusions>
+           <exclusion>
+              <artifactId>spring-web</artifactId>
+              <groupId>org.springframework</groupId>
+           </exclusion>
+         </exclusions>
+      </dependency>
+      <!-- IF USE ESUP TraceMe : stop -->
+
+<!-- 
       <dependency>
          <groupId>org.jasig.cas</groupId>
          <artifactId>cas-server-support-openid</artifactId>
@@ -87,8 +152,6 @@
          <type>jar</type>
          <scope>runtime</scope>
       </dependency>
-
-<!-- 
       <dependency>
          <groupId>org.jasig.cas</groupId>
          <artifactId>cas-server-support-spnego</artifactId>
@@ -147,30 +210,75 @@
       </dependency>
 -->
 
-      <!-- CAS SAML support -->
-      <dependency>
-         <groupId>org.jasig.cas</groupId>
-         <artifactId>cas-server-support-saml</artifactId>
-         <version>${cas.version}</version>
-      </dependency>
-
       <!-- CAS security filter -->
-      <dependency>
+      <!-- dependency>
         <groupId>org.jasig.cas</groupId>
         <artifactId>cas-server-security-filter</artifactId>
-        <version>1.0.0</version>
+        <version>2.0.0</version>
         <scope>runtime</scope>
-      </dependency>
+      </dependency-->
 
-      <!-- CAS services management -->
       <dependency>
-         <groupId>org.jasig.cas</groupId>
-         <artifactId>cas-management-webapp</artifactId>
-         <version>${cas.version}</version>
-         <type>war</type>
-         <scope>runtime</scope>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-web</artifactId>
+        <version>${spring.version}</version>
+        <exclusions>
+          <exclusion>
+            <groupId>commons-logging</groupId>
+            <artifactId>commons-logging</artifactId>
+          </exclusion>
+        </exclusions>
       </dependency>
 
+      <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-webmvc</artifactId>
+        <version>${spring.version}</version>
+        <exclusions>
+          <exclusion>
+            <groupId>commons-logging</groupId>
+            <artifactId>commons-logging</artifactId>
+          </exclusion>
+        </exclusions>
+      </dependency>
+      
+            <!-- Spring Security Managed Dependencies -->
+      <dependency>
+        <groupId>org.springframework.security</groupId>
+        <artifactId>spring-security-cas</artifactId>
+        <version>${spring.security.version}</version>
+        <exclusions>
+          <exclusion>
+            <groupId>commons-logging</groupId>
+            <artifactId>commons-logging</artifactId>
+          </exclusion>
+        </exclusions>
+      </dependency>
+
+      <dependency>
+        <groupId>org.springframework.security</groupId>
+        <artifactId>spring-security-core</artifactId>
+        <version>${spring.security.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.springframework.security</groupId>
+        <artifactId>spring-security-web</artifactId>
+        <version>${spring.security.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.springframework.security</groupId>
+        <artifactId>spring-security-config</artifactId>
+        <version>${spring.security.version}</version>
+        <exclusions>
+          <exclusion>
+            <groupId>commons-logging</groupId>
+            <artifactId>commons-logging</artifactId>
+          </exclusion>
+        </exclusions>
+      </dependency>
+      
       <!-- TraceMeAction.java dependency -->
       <dependency>
          <groupId>javax.servlet</groupId>
@@ -178,13 +286,10 @@
          <version>${servlet.api.version}</version>
          <scope>compile</scope>
       </dependency>
-      <!-- org.jasig.cas.web.support.CookieRetrievingCookieGenerator -->
-      <dependency>
-         <groupId>org.jasig.cas</groupId>
-         <artifactId>cas-server-webapp-support</artifactId>
-         <version>${cas.version}</version>
-      </dependency>
+   </dependencies>
+  </dependencyManagement>
 
+   <dependencies>
       <!-- Unify Logs configurations -->
       <dependency>
          <groupId>org.slf4j</groupId>
@@ -195,11 +300,19 @@
          <groupId>org.slf4j</groupId>
          <artifactId>slf4j-log4j12</artifactId>
          <version>${slf4j.version}</version>
+         <scope>runtime</scope>
+         <exclusions>
+           <exclusion>
+             <artifactId>log4j</artifactId>
+             <groupId>log4j</groupId>
+           </exclusion>
+         </exclusions>
       </dependency>
       <dependency>
          <groupId>org.slf4j</groupId>
          <artifactId>jcl-over-slf4j</artifactId>
          <version>${slf4j.version}</version>
+         <scope>compile</scope>
       </dependency>
       
       <dependency>
@@ -278,6 +391,12 @@
                    <contextPath>${server.uri}</contextPath>
                </webApp>
                <war>${basedir}/cas-toolbox-custom/target/cas-toolbox-custom-${project.version}.war</war>
+               <contextHandlers>
+                   <contextHandler implementation="org.eclipse.jetty.webapp.WebAppContext">
+                       <war>${basedir}/cas-toolbox-management/target/cas-toolbox-management-${project.version}.war</war>
+                       <contextPath>${management.server.uri}</contextPath>
+                   </contextHandler>
+               </contextHandlers>
             </configuration>
          </plugin>
          <plugin>
@@ -345,12 +464,6 @@
          <id>jasig-repository</id>
          <name>JA-SIG Maven2 Repository</name>
          <url>http://developer.jasig.org/repo/content/groups/m2-legacy</url>
-      </repository>
-      <!-- Restlet repository -->
-      <repository>
-         <id>maven-restlet</id>
-         <name>Restlet Framework repository</name>
-         <url>http://maven.restlet.com</url>
       </repository>
    </repositories>
 </project>
