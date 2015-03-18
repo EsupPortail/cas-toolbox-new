@@ -21,16 +21,6 @@
         </layout>
     </appender>
 
-    <!-- Add to log tickets : Don't use with rejectedAppender -->
-    <appender name="ticketsAppender" class="org.apache.log4j.RollingFileAppender">
-        <param name="File" value="${log.dir}/tickets.log" />
-        <param name="MaxFileSize" value="1024KB" />
-        <param name="MaxBackupIndex" value="10"/>
-        <layout class="org.apache.log4j.PatternLayout">
-            <param name="ConversionPattern" value="%d %p [%c] - %m%n"/>
-        </layout>
-    </appender>
-
     <appender name="authAppender" class="org.apache.log4j.FileAppender">
         <param name="File" value="${log.dir}/auth.log"/>
         <layout class="org.apache.log4j.PatternLayout">
@@ -38,7 +28,6 @@
         </layout>
     </appender>
 
-    <!-- Add to log rejected service : Don't use with ticketsAppender-->
 <!--
     <appender name="rejectedServicesAppender" class="org.apache.log4j.FileAppender">
         <param name="File" value="${log.dir}/rejectedServices.log"/>
@@ -58,6 +47,13 @@
     </appender>
     <!--  IF USE ESUP traceMe : stop -->
 
+	<appender name="serviceStatsAppender" class="org.apache.log4j.FileAppender">
+        <param name="File" value="${log.dir}/serviceStats.log"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%m%n"/>
+        </layout>
+    </appender>
+    
     <!-- Perf4J appenders -->
     <!--
        This AsyncCoalescingStatisticsAppender groups StopWatch log messages
@@ -110,7 +106,6 @@
         <appender-ref ref="CoalescingStatistics" />
     </logger>
 
-    <!-- Add to log rejected service : Don't use with ticketsAppender -->
 <!--
     <logger name="org.jasig.cas.CentralAuthenticationServiceImpl" additivity="false">
         <level value="WARN" />
@@ -138,10 +133,9 @@
         <appender-ref ref="authAppender" />
     </logger>
 
-    <!-- Add to log tickets : Don't use with rejectedAppender -->
-    <logger name="org.jasig.cas.CentralAuthenticationServiceImpl" additivity="true">
+    <logger name="org.esupportail.cas.audit.support.ServiceAuditTrailManager" additivity="false">
         <level value="INFO" />
-        <appender-ref ref="ticketsAppender" />
+        <appender-ref ref="serviceStatsAppender" />
     </logger>
 
     <!--
@@ -150,7 +144,7 @@
         password in the log file.  If you are sharing your log files, it is recommend you selectively
         apply DEBUG level logging on a an org.springframework.* package level (i.e. org.springframework.dao)
     -->
-
+    
     <logger name="org.springframework">
         <level value="ERROR" />
     </logger>
@@ -184,6 +178,7 @@
 
     <logger name="com.github.inspektr.audit.support.Slf4jLoggingAuditTrailManager">
         <level value="INFO" />
+        <appender-ref ref="cas" />
     </logger>
 
     <!--
