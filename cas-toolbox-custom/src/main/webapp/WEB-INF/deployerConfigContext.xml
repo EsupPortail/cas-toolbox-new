@@ -28,6 +28,17 @@
 		+-->
 	<bean id="authenticationManager"
 		class="org.jasig.cas.authentication.AuthenticationManagerImpl">
+		
+		<property name="authenticationMetaDataPopulators">
+      		<list>
+         		<bean class="org.esupportail.cas.services.TraceMeMetaDataPopulator">
+         			<property name="enabled" value="${trace.enabled}"/>
+					<property name="traceMeCookieGenerator" ref="traceMeCookieGenerator"/>		
+					<property name="traceMeUniqueIdGenerator" ref="traceMeUniqueIdGenerator"/>
+         		</bean>
+      		</list>
+		</property>
+
 		<!--
 			| This is the List of CredentialToPrincipalResolvers that identify what Principal is trying to authenticate.
 			| The AuthenticationManagerImpl considers them in order, finding a CredentialToPrincipalResolver which 
