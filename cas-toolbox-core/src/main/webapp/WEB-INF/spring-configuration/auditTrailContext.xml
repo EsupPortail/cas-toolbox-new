@@ -31,6 +31,7 @@
             <property name="enabled" value="${stats.enabled}"/>
         </bean>
         <!-- # IF USE ESUP stats : stop -->
+		<bean class="org.esupportail.cas.audit.support.ServiceAuditTrailManager"/>
       </list>
     </constructor-arg>
 

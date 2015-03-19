@@ -58,6 +58,13 @@
     </appender>
     <!--  IF USE ESUP traceMe : stop -->
 
+	<appender name="serviceStatsAppender" class="org.apache.log4j.FileAppender">
+        <param name="File" value="${log.dir}/serviceStats.log"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%m%n"/>
+        </layout>
+    </appender>
+	
     <!-- Perf4J appenders -->
     <!--
        This AsyncCoalescingStatisticsAppender groups StopWatch log messages
@@ -144,6 +151,11 @@
         <appender-ref ref="ticketsAppender" />
     </logger>
 
+	<logger name="org.esupportail.cas.audit.support.ServiceAuditTrailManager" additivity="false">
+        <level value="INFO" />
+        <appender-ref ref="serviceStatsAppender" />
+    </logger>
+	
     <!--
         WARNING: Setting the org.springframework logger to DEBUG displays debug information about
         the request parameter values being bound to the command objects.  This could expose your
