@@ -36,13 +36,14 @@ public final class TraceMeMetaDataPopulator implements
 			
 			ExternalContext externalContext = ExternalContextHolder.getExternalContext();
 			ServletExternalContext servletExternalContext = (ServletExternalContext) externalContext;
-			 
-			HttpServletRequest request = (HttpServletRequest) servletExternalContext.getNativeRequest();
-			HttpServletResponse response = (HttpServletResponse) servletExternalContext.getNativeResponse();
-			
-			this.traceMeCookieGenerator.addCookie(request, response, id);
-
-			log.info(id + ":" + principalId);
+			if (servletExternalContext != null) {
+				HttpServletRequest request = (HttpServletRequest) servletExternalContext.getNativeRequest();
+				HttpServletResponse response = (HttpServletResponse) servletExternalContext.getNativeResponse();
+				
+				this.traceMeCookieGenerator.addCookie(request, response, id);
+	
+				log.info(id + ":" + principalId);
+			}
 		}
 		return authentication;
 	}
