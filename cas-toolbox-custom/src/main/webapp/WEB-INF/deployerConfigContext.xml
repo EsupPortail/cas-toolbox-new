@@ -55,14 +55,20 @@
         <constructor-arg ref="handlerMap"/>
 
         <!-- Uncomment the metadata populator to allow clearpass to capture and cache the password
-             This switch effectively will turn on clearpass.
+             This switch effectively will turn on clearpass. -->
         <property name="authenticationMetaDataPopulators">
            <util:list>
-              <bean class="org.jasig.cas.extension.clearpass.CacheCredentialsMetaDataPopulator"
-                    c:credentialCache-ref="encryptedMap" />
+              <!-- <bean class="org.jasig.cas.extension.clearpass.CacheCredentialsMetaDataPopulator"
+                    c:credentialCache-ref="encryptedMap" /> -->
+              <!-- IF USE ESUP TraceMe : start -->
+              <bean class="org.esupportail.cas.services.TraceMeMetaDataPopulator">
+                  <property name="enabled" value="${trace.enabled}"/>
+                  <property name="traceMeCookieGenerator" ref="traceMeCookieGenerator"/>
+                  <property name="traceMeUniqueIdGenerator" ref="traceMeUniqueIdGenerator"/>
+              </bean>
+              <!-- IF USE ESUP TraceMe : stop -->
            </util:list>
         </property>
-        -->
 
         <!--
            | Defines the security policy around authentication. Some alternative policies that ship with CAS:

@@ -124,20 +124,10 @@
   </action-state>
 
 	<action-state id="sendTicketGrantingTicket">
-    <evaluate expression="sendTicketGrantingTicketAction" />
-<!--	<transition to="serviceCheck" />-->
-		<!--  IF USE ESUP traceMe : start -->
-		<transition on="success" to="putTraceMe" />
-		<!--  IF USE ESUP traceMe : stop -->
+		<evaluate expression="sendTicketGrantingTicketAction" />
+		<transition to="serviceCheck" />
 	</action-state>
 
-	<!--  IF USE ESUP traceMe : start -->
-	<action-state id="putTraceMe">
-		<evaluate expression="putTraceMeAction" />
-		<transition on="success" to="serviceCheck" />
-	</action-state>
-	<!--  IF USE ESUP traceMe : stop -->
-	
 	<decision-state id="serviceCheck">
 		<if test="flowScope.service != null" then="generateServiceTicket" else="viewGenericLoginSuccess" />
 	</decision-state>
