@@ -169,10 +169,14 @@
         <level value="ERROR" />
     </logger>
 
-    <!-- Troubleshoot LDAP connection pool problems in DEBUG -->
-    <!--logger name="org.springframework.ldap.pool">
+    <!-- Troubleshoot Ldaptive and LDAP Handlers problems in DEBUG -->
+    <!--logger name="org.ldaptive">
         <level value="INFO" />
-    </logger-->
+    </logger>
+    <logger name="org.jasig.cas.authentication.LdapAuthenticationHandler">
+        <level value="INFO" />
+    </logger>
+   -->
 
     <logger name="org.springframework.webflow">
         <level value="WARN" />

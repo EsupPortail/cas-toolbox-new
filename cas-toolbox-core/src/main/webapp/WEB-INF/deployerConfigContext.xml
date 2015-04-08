@@ -124,7 +124,6 @@
     may go against a database or LDAP server.  The id should remain "attributeRepository" though.
      -->
     <!-- # IF USE fileEncAuthHandler or filePlainAuthHandler without LDAP : start -->
-<!--
     <bean id="attributeRepository"
         class="org.jasig.services.persondir.support.StubPersonAttributeDao">
         <property name="backingMap">
@@ -137,32 +136,47 @@
             </map>
         </property>
     </bean>
--->
     <!-- # IF USE fileEncAuthHandler or filePlainAuthHandler without LDAP : stop -->
 
     <!-- # IF USE ldapFastBindHandler or ldapFullBindHandler : start -->
-    <bean id="attributeRepository"
-        class="org.jasig.services.persondir.support.ldap.LdapPersonAttributeDao">
-        <property name="contextSource" ref="ldapAuthContextSource" />
-        <property name="baseDN" value="${ldap.fullbind.basedn}" />
-        <property name="requireAllQueryAttributes" value="true" />
-        
-        <property name="queryAttributeMapping">
-            <map>
-              <entry key="username" value="uid" />
-            </map>
-        </property>
+    <bean id="ldapPrincipalResolver"
+          class="org.jasig.cas.authentication.principal.PersonDirectoryPrincipalResolver" >
+        <property name="attributeRepository" ref="ldapAttributeRepository" />
+    </bean>
 
-        <property name="resultAttributeMapping">
-            <map>
-                <entry key="uid" value="uid" />
+    <bean id="ldapAttributeRepository"
+        class="org.jasig.cas.persondir.LdapPersonAttributeDao"
+          p:connectionFactory-ref="searchPooledLdapConnectionFactory"
+          p:baseDN="${ldap.baseDn}"
+          p:searchControls-ref="searchControls"
+          p:searchFilter="${ldap.fullbind.filter}">
+        <property name="resultAttributeMapping" ref="ldapAttributeMap" />
+    </bean>
+
+    <!-- 
+        | SearchScope : object scope (0), onelevel scope, subtree scope (3)
+        | countLimit : 2 entrées maximum
+        -->
+    <bean id="searchControls"
+          class="javax.naming.directory.SearchControls"
+          p:searchScope="1"
+          p:countLimit="2" />
+
+    <!--
+        | This map provides a simple attribute resolution mechanism.
+        | Keys are LDAP attribute names, values are CAS attribute names.
+        | Use this facility instead of a PrincipalResolver if LDAP is
+        | the only attribute source.
+        -->
+    <util:map id="ldapAttributeMap">
+                <entry key="uid" value="${ldap.userPrincipalName}" />
                 <entry key="eduPersonAffiliation" value="eduPersonAffiliation" /> 
                 <entry key="displayName" value="displayName" />
                 <entry key="sn" value="sn" />
                 <entry key="givenName" value="givenName" />
-            </map>
-        </property>
-    </bean>
+                <entry key="mail" value="mail" />
+    </util:map>
+
     <!-- # IF USE ldapFastBindHandler or ldapFullBindHandler : stop -->
 
     <!-- 

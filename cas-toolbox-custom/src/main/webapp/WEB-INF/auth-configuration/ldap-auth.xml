@@ -15,8 +15,164 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:c="http://www.springframework.org/schema/c"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd">
 
-<!-- TODO -->
+<!-- 
+    | LDAP Fast Bind Authentication Handler :
+    |  no search before bind, "Active Directory" or "Direct Bind"
+    -->
+<bean id="ldapFastBindHandler"
+      class="org.jasig.cas.authentication.LdapAuthenticationHandler"
+      p:principalIdAttribute="${ldap.userPrincipalName}"
+      c:authenticator-ref="fastBindAuthenticator">
+            <!--
+               | This map provides a simple attribute resolution mechanism.
+               | Keys are LDAP attribute names, values are CAS attribute names.
+               | Use this facility instead of a PrincipalResolver if LDAP is
+               | the only attribute source.
+               -->
+    <property name="principalAttributeMap" ref="ldapAttributeMap" />
+</bean>
+
+<!-- Direct Search Configuration -->
+<!-- Active Directory Configuration -->
+<bean id="fastBindAuthenticator" class="org.ldaptive.auth.Authenticator"
+      c:resolver-ref="formatDnResolver"
+      c:handler-ref="authHandler" />
+<!-- no search before bind, AD : start-->
+<!-- Uncomment IF USE AD -->
+<!--      p:entryResolver-ref="entryResolver" /> -->
+
+<bean id="entryResolver"
+      class="org.jasig.cas.authentication.support.UpnSearchEntryResolver"
+      p:baseDn="${ldap.baseDn}" />
+<!-- no search before bind, AD : stop-->
+
+<bean id="formatDnResolver" class="org.ldaptive.auth.FormatDnResolver"
+      c:format="${ldap.fastbind-exp}" />
+
+
+<!-- 
+    | LDAP Full Bind Authentication Handler :
+    |  Search before bind, Open Ldap configuration
+    -->
+<bean id="ldapFullBindHandler"
+      class="org.jasig.cas.authentication.LdapAuthenticationHandler"
+      p:principalIdAttribute="${ldap.userPrincipalName}"
+      c:authenticator-ref="authenticator">
+            <!--
+               | This map provides a simple attribute resolution mechanism.
+               | Keys are LDAP attribute names, values are CAS attribute names.
+               | Use this facility instead of a PrincipalResolver if LDAP is
+               | the only attribute source.
+               -->
+    <property name="principalAttributeMap" ref="ldapAttributeMap" />
+</bean>
+
+
+<!-- Anonymous Search Configuration -->
+<!-- Bind Search Configuration -->
+<bean id="authenticator" class="org.ldaptive.auth.Authenticator"
+      c:resolver-ref="dnResolver"
+      c:handler-ref="authHandler" />
+
+<!--  search before bind and anonymous search : start -->
+<bean id="dnResolver" class="org.ldaptive.auth.PooledSearchDnResolver"
+      p:baseDn="${ldap.baseDn}"
+      p:subtreeSearch="false"
+      p:allowMultipleDns="false"
+      p:connectionFactory-ref="searchPooledLdapConnectionFactory"
+      p:userFilter="${ldap.fullbind.filter}" />
+
+<bean id="authHandler" class="org.ldaptive.auth.PooledBindAuthenticationHandler"
+      p:connectionFactory-ref="bindPooledLdapConnectionFactory" />
+
+<bean id="searchPooledLdapConnectionFactory"
+      class="org.ldaptive.pool.PooledConnectionFactory"
+      p:connectionPool-ref="searchConnectionPool" />
+
+<bean id="searchConnectionPool" parent="abstractConnectionPool"
+      p:connectionFactory-ref="searchConnectionFactory" />
+
+<bean id="searchConnectionFactory" class="org.ldaptive.DefaultConnectionFactory"
+      p:connectionConfig-ref="searchConnectionConfig" />
+
+<!-- Comment bindConnectionInitializer IF USE LdapAnonymous -->
+<!-- Uncomment bindConnectionInitializer IF USE LdapUsername -->
+<bean id="searchConnectionConfig" parent="abstractConnectionConfig" />
+<!--      p:connectionInitializer-ref="bindConnectionInitializer" /> -->
+<!--  search before bind and anonymous search : stop -->
+
+<bean id="bindConnectionInitializer" class="org.ldaptive.BindConnectionInitializer"
+      p:bindDn="${ldap.userDn}">
+    <property name="bindCredential">
+        <bean class="org.ldaptive.Credential"
+              c:password="${ldap.bindPasswd}" />
+    </property>
+</bean>
+
+<bean id="abstractConnectionPool" abstract="true"
+      class="org.ldaptive.pool.BlockingConnectionPool"
+      init-method="initialize"
+      p:poolConfig-ref="ldapPoolConfig"
+      p:blockWaitTime="${ldap.pool.blockWaitTime}"
+      p:validator-ref="searchValidator"
+      p:failFastInitialize="${ldap.failFastInitialize}"
+      p:pruneStrategy-ref="pruneStrategy" />
+
+<bean id="abstractConnectionConfig" abstract="true"
+      class="org.ldaptive.ConnectionConfig"
+      p:ldapUrl="${ldap.hosts}"
+      p:connectTimeout="${ldap.connect.timeout}"
+      p:useSSL="${ldap.ssl}"
+      p:useStartTLS="${ldap.useStartTLS}" />
+<!--      p:sslConfig-ref="sslConfig" /> -->
+<!-- Uncomment sslConfig to use SSL or TLS -->
+
+<alias name="${ldap.sslConfig}" alias="sslConfig" />
+
+<bean id="jvmTrust" class="org.ldaptive.ssl.SslConfig" />
+
+<bean id="certificateTrust" class="org.ldaptive.ssl.SslConfig">
+    <property name="credentialConfig">
+        <bean class="org.ldaptive.ssl.X509CredentialConfig" 
+              p:trustCertificates="${ldap.cert}" />
+    </property>
+</bean>
+
+<bean id="keyStoreTrust" class="org.ldaptive.ssl.SslConfig">
+    <property name="credentialConfig">
+        <bean class="org.ldaptive.ssl.KeyStoreCredentialConfig"
+              p:keyStore="${ldap.keyStore}"
+              p:keyStoreType="${ldap.keyStoreType}"
+              p:keyStorePassword="${ldap.keyStorePassword}" />
+    </property>
+</bean>
+
+<bean id="bindPooledLdapConnectionFactory"
+      class="org.ldaptive.pool.PooledConnectionFactory"
+      p:connectionPool-ref="bindConnectionPool" />
+
+<bean id="bindConnectionPool" parent="abstractConnectionPool"
+      p:connectionFactory-ref="bindConnectionFactory" />
+
+<bean id="bindConnectionFactory" class="org.ldaptive.DefaultConnectionFactory"
+      p:connectionConfig-ref="bindConnectionConfig" />
+
+<bean id="bindConnectionConfig" parent="abstractConnectionConfig" />
+
+<bean id="ldapPoolConfig" class="org.ldaptive.pool.PoolConfig"
+      p:minPoolSize="${ldap.pool.minSize}"
+      p:maxPoolSize="${ldap.pool.maxSize}"
+      p:validateOnCheckOut="${ldap.pool.validateOnCheckout}"
+      p:validatePeriodically="${ldap.pool.validatePeriodically}"
+      p:validatePeriod="${ldap.pool.validatePeriod}" />
+
+<bean id="pruneStrategy" class="org.ldaptive.pool.IdlePruneStrategy"
+      p:prunePeriod="${ldap.pool.prunePeriod}"
+      p:idleTime="${ldap.pool.idleTime}" />
+
+<bean id="searchValidator" class="org.ldaptive.pool.SearchValidator" />
 
 </beans>
