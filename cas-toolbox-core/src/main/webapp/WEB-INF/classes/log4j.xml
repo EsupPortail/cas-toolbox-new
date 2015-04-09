@@ -52,8 +52,7 @@
     <appender name="traceAppender" class="org.apache.log4j.FileAppender">
         <param name="File" value="${log.dir}/trace.log"/>
         <layout class="org.apache.log4j.PatternLayout">
-            <!--param name="ConversionPattern" value="%m%n"/-->
-            <param name="ConversionPattern" value="%d %p [%c] - %m%n"/>
+            <param name="ConversionPattern" value="%m%n"/>
         </layout>
     </appender>
     <!--  IF USE ESUP traceMe : stop -->
@@ -126,7 +125,7 @@
 -->
 
     <!--  IF USE ESUP traceMe : start -->
-    <logger name="org.esupportail.cas.web.flow.TraceMeAction" additivity="false">
+    <logger name="org.esupportail.cas.services.TraceMeMetaDataPopulator" additivity="false">
         <level value="INFO" />
         <appender-ref ref="traceAppender" />
     </logger>

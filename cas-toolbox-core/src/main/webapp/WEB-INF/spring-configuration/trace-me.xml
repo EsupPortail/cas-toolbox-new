@@ -7,12 +7,6 @@
        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
 	
 	<!--  IF USE ESUP traceMe : start -->
-	<bean id="putTraceMeAction" class="org.esupportail.cas.web.flow.TraceMeAction">
-		<property name="enabled" value="${trace.enabled}"/>
-		<property name="traceMeCookieGenerator" ref="traceMeCookieGenerator"/>		
-		<property name="traceMeUniqueIdGenerator" ref="traceMeUniqueIdGenerator"/>
-	</bean>	
-
 	<bean id="traceMeCookieGenerator" class="org.jasig.cas.web.support.CookieRetrievingCookieGenerator"
 				p:cookieSecure="${trace.cookieSecure}"
 				p:cookieMaxAge="${trace.cookieMaxAge}"
