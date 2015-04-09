@@ -4,9 +4,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.constraints.NotNull;
 
-import org.jasig.cas.authentication.Authentication;
+import org.jasig.cas.authentication.AuthenticationBuilder;
 import org.jasig.cas.authentication.AuthenticationMetaDataPopulator;
-import org.jasig.cas.authentication.principal.Credentials;
+import org.jasig.cas.authentication.Credential;
 import org.jasig.cas.util.UniqueTicketIdGenerator;
 import org.jasig.cas.web.support.CookieRetrievingCookieGenerator;
 import org.slf4j.Logger;
@@ -29,10 +29,10 @@ public final class TraceMeMetaDataPopulator implements
 	private boolean enabled = false;
 	
 	@Override
-	public Authentication populateAttributes(Authentication authentication, Credentials credentials) {
+	public void populateAttributes(AuthenticationBuilder builder, Credential credential) {
 		if(enabled) {
 			String id = traceMeUniqueIdGenerator.getNewTicketId("TRACE");
-			String principalId = authentication.getPrincipal().getId();
+			String principalId = builder.getPrincipal().getId();
 			
 			ExternalContext externalContext = ExternalContextHolder.getExternalContext();
 			ServletExternalContext servletExternalContext = (ServletExternalContext) externalContext;
@@ -44,7 +44,6 @@ public final class TraceMeMetaDataPopulator implements
 
 			log.info(id + ":" + principalId);
 		}
-		return authentication;
 	}
 
 	public void setEnabled(boolean enabled) {
