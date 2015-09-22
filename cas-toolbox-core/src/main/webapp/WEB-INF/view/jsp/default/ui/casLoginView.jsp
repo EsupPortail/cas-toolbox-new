@@ -1,9 +1,9 @@
 <%--
 
-    Licensed to Jasig under one or more contributor license
+    Licensed to Apereo under one or more contributor license
     agreements. See the NOTICE file distributed with this work
     for additional information regarding copyright ownership.
-    Jasig licenses this file to you under the Apache License,
+    Apereo licenses this file to you under the Apache License,
     Version 2.0 (the "License"); you may not use this file
     except in compliance with the License.  You may obtain a
     copy of the License at the following location:
@@ -22,35 +22,27 @@
 
 <c:if test="${not pageContext.request.secure}">
   <div id="msg" class="errors">
-    <h2>Connexion non s&eacute;curis&eacute;e<h2>
-    <p>Vous acc&eacute;dez au serveur CAS sur une connexion non authentifi&eacute;e. L'authentification va fonctionner. Pour &eacute;viter de vous identifier &agrave; chaque connexion vous devez absolument passer en HTTPS.</p>
+    <h2><spring:message code="screen.nonsecure.title" /></h2>
+    <p><spring:message code="screen.nonsecure.message" /></p>
   </div>
 </c:if>
 
-<div class="box fl-panel" id="login">
-  <form:form method="post" id="fm1" cssClass="fm-v clearfix" commandName="${commandName}" htmlEscape="true">
+<div class="box" id="login">
+  <form:form method="post" id="fm1" cssClass="clearfix" commandName="${commandName}" htmlEscape="true">
 
-    <form:errors path="*" id="msg" cssClass="errors" element="div"  htmlEscape="false"/>
+    <form:errors path="*" id="msg" cssClass="errors" element="div" htmlEscape="false" />
   
     <!-- <spring:message code="screen.welcome.welcome" /> -->
     <h2><spring:message code="screen.welcome.instructions" /></h2>
   
-    <div class="row fl-controls-left">
-      <label for="username" class="fl-label"><spring:message code="screen.welcome.label.netid" /></label>
-      <c:choose>
-        <c:when test="${not empty sessionScope.openIdLocalId}">
-          <strong>${sessionScope.openIdLocalId}</strong>
-          <input type="hidden" id="username" name="username" value="${sessionScope.openIdLocalId}" />
-        </c:when>
-        <c:otherwise>
+    <section class="row">
+      <label for="username"><spring:message code="screen.welcome.label.netid" /></label>
           <spring:message code="screen.welcome.label.netid.accesskey" var="userNameAccessKey" />
           <form:input cssClass="required" cssErrorClass="error" id="username" size="25" tabindex="1" accesskey="${userNameAccessKey}" path="username" autocomplete="off" htmlEscape="true" />
-        </c:otherwise>
-      </c:choose>
-    </div>
+    </section>
     
-    <div class="row fl-controls-left">
-      <label for="password" class="fl-label"><spring:message code="screen.welcome.label.password" /></label>
+    <section class="row">
+      <label for="password"><spring:message code="screen.welcome.label.password" /></label>
       <%--
       NOTE: Certain browsers will offer the option of caching passwords for a user.  There is a non-standard attribute,
       "autocomplete" that when set to "off" will tell certain browsers not to prompt to cache credentials.  For more
@@ -59,29 +51,29 @@
       --%>
       <spring:message code="screen.welcome.label.password.accesskey" var="passwordAccessKey" />
       <form:password cssClass="required" cssErrorClass="error" id="password" size="25" tabindex="2" path="password"  accesskey="${passwordAccessKey}" htmlEscape="true" autocomplete="off" />
-    </div>
+    </section>
     
-    <div class="row check">
+    <section class="row check">
       <input id="warn" name="warn" value="true" tabindex="3" accesskey="<spring:message code="screen.welcome.label.warn.accesskey" />" type="checkbox" />
       <label for="warn"><spring:message code="screen.welcome.label.warn" /></label>
-    </div>
+    </section>
     
-    <div class="row btn-row">
+    <section class="row btn-row">
       <input type="hidden" name="lt" value="${loginTicket}" />
       <input type="hidden" name="execution" value="${flowExecutionKey}" />
       <input type="hidden" name="_eventId" value="submit" />
 
       <input class="btn-submit" name="submit" accesskey="l" value="<spring:message code="screen.welcome.button.login" />" tabindex="4" type="submit" />
       <input class="btn-reset" name="reset" accesskey="c" value="<spring:message code="screen.welcome.button.clear" />" tabindex="5" type="reset" />
-    </div>
+    </section>
   </form:form>
 </div>
   
 <div id="sidebar">
   <div class="sidebar-content">
-    <p class="fl-panel fl-note fl-bevel-white fl-font-size-80"><spring:message code="screen.welcome.security" /></p>
+    <p><spring:message code="screen.welcome.security" /></p>
     
-    <div id="list-languages" class="fl-panel">
+    <div id="list-languages">
       <%final String queryString = request.getQueryString() == null ? "" : request.getQueryString().replaceAll("&locale=([A-Za-z][A-Za-z]_)?[A-Za-z][A-Za-z]|^locale=([A-Za-z][A-Za-z]_)?[A-Za-z][A-Za-z]", "");%>
       <c:set var='query' value='<%=queryString%>' />
       <c:set var="xquery" value="${fn:escapeXml(query)}" />

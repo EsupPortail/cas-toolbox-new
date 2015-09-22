@@ -1,9 +1,9 @@
 <%--
 
-    Licensed to Jasig under one or more contributor license
+    Licensed to Apereo under one or more contributor license
     agreements. See the NOTICE file distributed with this work
     for additional information regarding copyright ownership.
-    Jasig licenses this file to you under the Apache License,
+    Apereo licenses this file to you under the Apache License,
     Version 2.0 (the "License"); you may not use this file
     except in compliance with the License.  You may obtain a
     copy of the License at the following location:
@@ -22,15 +22,13 @@
 
       </div> <!-- END #content -->
       
-      <div id="footer" class="fl-panel fl-note fl-bevel-white fl-font-size-80">
-        <a id="logo" href="http://www.jasig.org" title="<spring:message code="logo.title"/>"></a>
+      <footer id="footer">
+        <a id="logo" href="http://www.apereo.org" title="<spring:message code="logo.title"/>"></a>
         <div id="copyright">
           <p><spring:message code="copyright" /></p>
-          <p>Powered by <a href="http://www.jasig.org">Jasig Central Authentication Service <%=org.jasig.cas.CasVersion.getVersion()%></a></p>
+          <p>Powered by <a href="http://www.apereo.org/cas">Apereo Central Authentication Service <%=org.jasig.cas.CasVersion.getVersion()%></a></p>
         </div>
-      </div>
-
-    </div>
+      </footer>
 
     </div> <!-- END #container -->
     

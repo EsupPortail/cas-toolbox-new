@@ -37,16 +37,8 @@
   
     <div class="row fl-controls-left">
       <label for="username" class="fl-label"><spring:message code="screen.welcome.label.netid" /></label>
-      <c:choose>
-        <c:when test="${not empty sessionScope.openIdLocalId}">
-          <strong>${sessionScope.openIdLocalId}</strong>
-          <input type="hidden" id="username" name="username" value="${sessionScope.openIdLocalId}" />
-        </c:when>
-        <c:otherwise>
           <spring:message code="screen.welcome.label.netid.accesskey" var="userNameAccessKey" />
           <form:input cssClass="required" cssErrorClass="error" id="username" size="25" tabindex="1" accesskey="${userNameAccessKey}" path="username" autocomplete="off" htmlEscape="true" />
-        </c:otherwise>
-      </c:choose>
     </div>
     
     <div class="row fl-controls-left">
