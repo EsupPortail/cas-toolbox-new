@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <!--
 
-    Licensed to Jasig under one or more contributor license
+    Licensed to Apereo under one or more contributor license
     agreements. See the NOTICE file distributed with this work
     for additional information regarding copyright ownership.
-    Jasig licenses this file to you under the Apache License,
+    Apereo licenses this file to you under the Apache License,
     Version 2.0 (the "License"); you may not use this file
     except in compliance with the License.  You may obtain a
     copy of the License at the following location:
@@ -19,11 +19,11 @@
     under the License.
 
 -->
-<web-app xmlns="http://java.sun.com/xml/ns/j2ee"
+<web-app xmlns="http://java.sun.com/xml/ns/javaee"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"
-         version="2.4">
-  <display-name>Central Authentication System (CAS) ${project.version}</display-name>
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+         version="3.0">
+    <display-name>Central Authentication System (CAS) ${project.version}</display-name>
 
   <context-param>
     <param-name>contextConfigLocation</param-name>
@@ -33,6 +33,15 @@
       /WEB-INF/deployerConfigContext.xml
     </param-value>
   </context-param>
+
+  <filter>
+    <filter-name>characterEncodingFilter</filter-name>
+    <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>characterEncodingFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
 
   <filter>
     <filter-name>CAS Client Info Logging Filter</filter-name>
@@ -58,12 +67,36 @@
       <param-name>allowMultiValuedParameters</param-name>
       <param-value>false</param-value>
     </init-param>
+    <init-param>
+      <param-name>onlyPostParameters</param-name>
+      <param-value>username password</param-value>
+    </init-param>
   </filter>
+  <!--
+      Ignore Rest endpoint in the url patterns list. Once the security
+      filter reads and processes the request, restlet is unable to
+      proceed with extracting credentials because it sees the request
+      input stream as consumed even.
+  -->
   <filter-mapping>
-    <filter-name>requestParameterSecurityFilter</filter-name>
-    <url-pattern>/*</url-pattern>
+      <filter-name>requestParameterSecurityFilter</filter-name>
+      <url-pattern>/authorizationFailure.html</url-pattern>
+      <url-pattern>/CentralAuthenticationService</url-pattern>
+      <url-pattern>/login</url-pattern>
+      <url-pattern>/logout</url-pattern>
+      <url-pattern>/p3/proxyValidate</url-pattern>
+      <url-pattern>/p3/serviceValidate</url-pattern>
+      <url-pattern>/proxy</url-pattern>
+      <url-pattern>/proxyValidate</url-pattern>
+      <!-- If USE SAML : start -->
+      <url-pattern>/samlValidate</url-pattern>
+      <!-- If USE SAML : stop -->
+      <url-pattern>/serviceValidate</url-pattern>
+      <url-pattern>/statistics</url-pattern>
+      <url-pattern>/status</url-pattern>
+      <url-pattern>/validate</url-pattern>
   </filter-mapping>
-
+  
   <filter>
     <filter-name>springSecurityFilterChain</filter-name>
     <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
@@ -75,15 +108,6 @@
   <filter-mapping>
     <filter-name>springSecurityFilterChain</filter-name>
     <url-pattern>/statistics</url-pattern>
-  </filter-mapping>
-
-  <filter>
-    <filter-name>characterEncodingFilter</filter-name>
-    <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
-  </filter>
-  <filter-mapping>
-    <filter-name>characterEncodingFilter</filter-name>
-    <url-pattern>/*</url-pattern>
   </filter-mapping>
 
   <!--
