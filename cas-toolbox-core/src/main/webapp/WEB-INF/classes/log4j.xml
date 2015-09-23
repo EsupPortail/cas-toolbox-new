@@ -148,8 +148,8 @@
     
     <!-- IF USE ESUP blockAttack : start -->
     <!-- Set DEBUG to see logs -->
-    <logger name="org.esupportail.cas.services.blockAttack" additivity="false">
-        <level value="ERROR" />
+    <logger name="org.jasig.cas.web.support" additivity="false">
+        <level value="WARN" />
         <appender-ref ref="authAppender" />
     </logger>
     <!-- IF USE ESUP blockAttack : stop -->
