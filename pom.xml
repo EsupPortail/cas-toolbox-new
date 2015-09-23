@@ -76,6 +76,7 @@
          <scope>runtime</scope>
       </dependency>
 
+      <!--  IF USE ESUP memcache : start -->
       <!--dependency>
          <groupId>org.jasig.cas</groupId>
          <artifactId>cas-server-integration-memcached</artifactId>
@@ -83,6 +84,7 @@
          <type>jar</type>
          <scope>runtime</scope>
       </dependency-->
+       <!--  IF USE ESUP memcache : stop -->
 
       <!-- IF USE restful : start -->
       <!--  spring-web conflicts 3.0.5 and 3.2 -->

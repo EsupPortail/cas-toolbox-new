@@ -41,10 +41,13 @@
            <type>war</type>
            <scope>runtime</scope>
        </dependency>
+
+       <!--  IF USE ESUP memcache : start -->
        <!-- dependency>
            <groupId>org.jasig.cas</groupId>
            <artifactId>cas-server-integration-memcached</artifactId>
        </dependency-->
+       <!--  IF USE ESUP memcache : stop -->
 
        <!-- IF USE restful : start -->
        <dependency>
