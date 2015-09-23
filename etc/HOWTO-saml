@@ -1,0 +1,39 @@
+### Configuration Protocole SAML
+###
+
+Esup-cas-toolbox est préconfiguré pour supporter SAML 1.1 :
+* une méthode pour fournir des attributs de l'utilisateur au moment de la connexion
+* une méthode de Single Logout
+
+Liste des fichiers concernés : 
+- config.properties
+- pom.xml
+- cas-toolbox-core/pom.xml
+- cas-toolbox-core/src/main/webapp/WEB-INF/cas-servlet.xml
+- cas-toolbox-core/src/main/webapp/WEB-INF/deployerConfigContext.xml
+- cas-toolbox-core/src/main/webapp/WEB-INF/spring-configuration/argumentExtractorsConfiguration.xml
+- cas-toolbox-core/src/main/webapp/WEB-INF/spring-configuration/uniqueIdGenerators.xml
+- cas-toolbox-core/src/main/webapp/WEB-INF/web.xml
+
+Plus d'information sur
+	http://jasig.github.io/cas/4.0.x/protocol/SAML-Protocol.html
+
+Si SAML est configuré avec LDAP, il est nécessaire de remplir la clé ldap.searchFilter dans le fichier config.properties qui permet de récupérer les attributs définits dans le bean attributeRepository pour la personne recherchée par "uid" 
+
+
+Pour désactiver/supprimer le support du protocole SAML, il faut 
+Commenter ou supprimer tous les éléments précédés ou encadrés de conmmentaires comportant "If USE SAML"
+
+Pour supprimer définitivement la configuration SAML, il faut commenter ou supprimer les dépendances liés au module "cas-server-support-saml" dans les fichiers pom.xml
+       <!-- If USE SAML : start -->
+       <dependency>
+           <groupId>org.jasig.cas</groupId>
+           <artifactId>cas-server-support-saml</artifactId>
+           <!-- exclusions>
+               <exclusion>
+                   <groupId>org.bouncycastle</groupId>
+                   <artifactId>bcprov-jdk15</artifactId>
+               </exclusion>
+           </exclusions-->
+        </dependency>
+        <!-- If USE SAML : stop -->

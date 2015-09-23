@@ -1,0 +1,97 @@
+### Configuration Accès Annuaire LDAP
+###
+
+0. Configuration centralisée
+1. Authentification en mode anonyme ou avec un compte dédié
+2. Connexion à une ou plusieurs annuaires
+
+
+1. Connexion à un annuaire LDAP via un compte dédié
+ - Décommenter les lignes entre "IF USE LdapUsername : start" et "IF USE LdapUsername : stop"
+
+
+2. Utilisation d'un LDAP unique ou de plusieurs 
+Utiliser LdapOneHost ou LdapHosts (LdapHosts par défaut)
+<!-- Connection à une liste de LDAP (par exemple, annuaire en ldap ou ldaps) ou à une seule url (ldaps) : plusieurs urls par défaut -->
+
+
+Plus d'information sur
+	http://jasig.github.io/cas/4.0.x/installation/LDAP-Authentication.html
+
+Liste des fichiers concernés : 
+- pom.xml
+- config.properties
+- cas-toolbox-core/pom.xml
+- cas-toolbox-core/src/main/webapp/WEB-INF/deployerConfigContext.xml
+- cas-toolbox-core/src/main/webapp/WEB-INF/auth-configuration/ldap-auth.xml
+- cas-toolbox-core/src/main/webapp/WEB-INF/classes/log4j.xml (log org.ldaptive)
+- cas-toolbox-core/src/main/webapp/WEB-INF/extra-spring-configuration/lppe-configuration.xml (configuration LDAP password policy))
+- cas-toolbox-custom/src/main/webapp/WEB-INF/deployerConfigContext.xml
+- cas-toolbox-custom/src/main/webapp/WEB-INF/auth-configuration/ldap-auth.xml
+- cas-toolbox-custom/src/main/webapp/WEB-INF/classes/log4j.xml (log org.ldaptive)
+
+
+
+
+* Pour utiliser le serveur CAS avec LDAP, il faut définir un ou plusieurs des handlers suivants dans authHandlers :
+# - ldapFastBindHandler : make a fast bind in ldap (AD or direct bind configuration)
+# - ldapFullBindHandler : make a search after a bind with find dn (OpenLdap or anonymous configuration)
+
+En fonction du ou des choix, il faudra ensuite décommenter ou commenter certaines partie du fichier config.properties
+	cas-toolbox-custom/src/main/webapp/WEB-INF/auth-configuration/ldap-auth.xml
+
+Par exemple, pour utiliser un compte spécifique pour se connecter à l'annuaire ou lieu de réaliser un appel anonyme, il faudra remplacer :
+
+	<!-- Comment bindConnectionInitializer IF USE LdapAnonymous -->
+	<!-- Uncomment bindConnectionInitializer IF USE LdapUsername -->
+	<bean id="searchConnectionConfig" parent="abstractConnectionConfig" />
+	<!--      p:connectionInitializer-ref="bindConnectionInitializer" /> -->
+	<!--  search before bind and anonymous search : stop -->
+par 
+	<!-- Comment bindConnectionInitializer IF USE LdapAnonymous -->
+	<!-- Uncomment bindConnectionInitializer IF USE LdapUsername -->
+	<bean id="searchConnectionConfig" parent="abstractConnectionConfig"
+	      p:connectionInitializer-ref="bindConnectionInitializer" />
+	<!--  search before bind and anonymous search : stop -->
+
+
+
+
+
+* Pour les récupérer les attributs LDAP de la personne connectée avec CAS, il faut penser à vérifier la valeur de la propriété attributeRepository et il faut définir la liste des attributs à rechercher dans la map ldapAttributeMap
+	cas-toolbox-custom/src/main/webapp/WEB-INF/deployerConfigContext.xml
+
+
+
+
+
+* Pour utiliser le serveur CAS sans la configuration LDAP, il suffit de changer la configuration des gestionnaires d'authentification dans config.properties
+Dans config.properties
+	Commenter 
+# IF USE ldapFullBindHandler
+#authHandlers=fileEncAuthHandler,ldapFullBindHandler
+	Décommenter
+authHandlers=fileEncAuthHandler
+	Commenter
+# IF USE ldapFullBindHandler
+#authResolvers=primaryPrincipalResolver,ldapPrincipalResolver
+	Décommenter
+authResolvers=primaryPrincipalResolver
+
+Ensuite pour éviter d'avoir des erreurs dans les fichiers de log, il est préférable de commenter ou supprimer tous les éléments précédés ou encadrés de conmmentaires comportant "# IF USE ldapFullBindHandler" ou "# IF USE ldapFastBindHandler" ou "# IF USE LDAP"
+
+1. Commenter ou supprimer tout le contenu entre les balises <beans> et </beans> dans auth.xml dans cas-toolbox-custom/src/main/webapp/WEB-INF/auth-configuration/ldap-auth.xml
+
+2. Commenter ou supprimer tout le contenu entre     <!-- # IF USE ldapFastBindHandler or ldapFullBindHandler : start --> et <!-- # IF USE ldapFastBindHandler or ldapFullBindHandler : stop --> dans cas-toolbox-custom/src/main/webapp/WEB-INF/deployerConfigContext.xml
+
+3. Pour supprimer définitivement la configuration LDAP, il faut commenter ou supprimer les dépendances liés au module "cas-server-support-ldap" dans les fichiers pom.xml
+      <!-- If USE LDAP : start -->
+      <dependency>
+         <groupId>org.jasig.cas</groupId>
+         <artifactId>cas-server-support-ldap</artifactId>
+         <version>${cas.version}</version>
+         <type>jar</type>
+         <scope>runtime</scope>
+      </dependency>
+      <!-- If USE LDAP : stop --> 
+
