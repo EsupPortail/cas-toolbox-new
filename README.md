@@ -6,10 +6,10 @@ You must have JDK (1.6 or greater), Maven 3 install (and Tomcat 7 or greater)
 
  - Deploying a CAS server into an existing Tomcat installation
  - Simplifying and centralizing CAS configuration
-     -- config.properties file and Authentication “HandlersDiscover” functionality
+     * config.properties file and Authentication “HandlersDiscover” functionality
  - Esup pre-settings and add-ons
-     -- Esup Theme, LDAP, Logging, TraceMe, Stats, BlockAttack, SAML 1.1…
-     -- Configured modules that user can activate : Memcached, Rest…
+     * Esup Theme, LDAP, Logging, TraceMe, Stats, BlockAttack, SAML 1.1…
+     * Configured modules that user can activate : Memcached, Rest…
 
 
 -------------------------------------
@@ -153,8 +153,8 @@ TRACE-1-70RFFjeWwSqCfoqwHxUoimyMBELrhdlqAjhtlhoIpChkFnuG5f-localhost:admin
 ```
 
 - HandlersDiscover JAVA class: org.esupportail.cas.HandlersDiscover.java
-	-- Browse the list of authentication Handlers, the list of authentication Resolvers
-	-- Put each couple <AuthHandler, AuthResolver> within the HandlerMap used by Authentication Manager bean
+	* Browse the list of authentication Handlers, the list of authentication Resolvers
+	* Put each couple <AuthHandler, AuthResolver> within the HandlerMap used by Authentication Manager bean
 
 - Handlers to discover within src\main\webapp\WEB-INF\auth-configuration\*-auth.xml
 
@@ -189,4 +189,3 @@ TRACE-1-70RFFjeWwSqCfoqwHxUoimyMBELrhdlqAjhtlhoIpChkFnuG5f-localhost:admin
 -------------------------------------
 
 http://jasig.github.io/cas/4.0.x/
-
