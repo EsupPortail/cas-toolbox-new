@@ -6,10 +6,10 @@ You must have JDK (1.6 or greater), Maven 3 install (and Tomcat 7 or greater)
 
  - Deploying a CAS server into an existing Tomcat installation
  - Simplifying and centralizing CAS configuration
-     config.properties file and Authentication “HandlersDiscover” functionality
+     -- config.properties file and Authentication “HandlersDiscover” functionality
  - Esup pre-settings and add-ons
-     Esup Theme, LDAP, Logging, TraceMe, Stats, BlockAttack, SAML 1.1…
-     Configured modules that user can activate : Memcached, Rest…
+     -- Esup Theme, LDAP, Logging, TraceMe, Stats, BlockAttack, SAML 1.1…
+     -- Configured modules that user can activate : Memcached, Rest…
 
 
 -------------------------------------
@@ -35,6 +35,7 @@ You must have JDK (1.6 or greater), Maven 3 install (and Tomcat 7 or greater)
 
 An integrator can easily copy the files from cas-toolbox-core (or the Apereo CAS project) to cas-toolbox-custom and then modify the files.
 
+```
 cas-toolbox-core
   |-- src/main/java
   |-- src/main/webapp
@@ -52,16 +53,17 @@ etc
 config.sample.properties
 config.properties
 pom.xml
-  
-target : folders where cas server was build before deploy
-cas-toolbox-core : folder that stores all esup addons and preconfigurations of the cas server
-cas-toolbox-core/src/main/java : java sources added or updated by the esup packaging
-cas-toolbox-core/src/main/webbapp : files of webpages, configurations (spring, log, messages...) updated by the esup packaging
-cas-toolbox-custom : folder where you can put your configurations and cutomizations of the cas server (the same stucture of cas-toolbox-core folder)
-cas-toolbox-management : folder that stores a default configuration of the services management module of the cas server
-etc : HOWTo help files, scripts, notice and licence examples...
-config.sample.properties : esup cas configuration example
-config.properties : esup cas configuration file (with University )
+```
+
+ - target : folders where cas server was build before deploy
+ - cas-toolbox-core : folder that stores all esup addons and preconfigurations of the cas server
+ - cas-toolbox-core/src/main/java : java sources added or updated by the esup packaging
+ - cas-toolbox-core/src/main/webbapp : files of webpages, configurations (spring, log, messages...) updated by the esup packaging
+ - cas-toolbox-custom : folder where you can put your configurations and cutomizations of the cas server (the same stucture of cas-toolbox-core folder)
+ - cas-toolbox-management : folder that stores a default configuration of the services management module of the cas server
+ - etc : HOWTo help files, scripts, notice and licence examples...
+ - config.sample.properties : esup cas configuration example
+ - config.properties : esup cas configuration file (with University )
 
 
 -------------------------------------
@@ -151,8 +153,8 @@ TRACE-1-70RFFjeWwSqCfoqwHxUoimyMBELrhdlqAjhtlhoIpChkFnuG5f-localhost:admin
 ```
 
 - HandlersDiscover JAVA class: org.esupportail.cas.HandlersDiscover.java
-	Browse the list of authentication Handlers, the list of authentication Resolvers
-	Put each couple <AuthHandler, AuthResolver> within the HandlerMap used by Authentication Manager bean
+	-- Browse the list of authentication Handlers, the list of authentication Resolvers
+	-- Put each couple <AuthHandler, AuthResolver> within the HandlerMap used by Authentication Manager bean
 
 - Handlers to discover within src\main\webapp\WEB-INF\auth-configuration\*-auth.xml
 
