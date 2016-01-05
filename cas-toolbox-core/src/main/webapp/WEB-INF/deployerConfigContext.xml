@@ -67,6 +67,7 @@
                   <property name="traceMeUniqueIdGenerator" ref="traceMeUniqueIdGenerator"/>
               </bean>
               <!-- IF USE ESUP TraceMe : stop -->
+              <bean class="org.esupportail.cas.addon.authentication.principal.ExtrasInfosAuthenticationMetaDataPopulator" />
            </util:list>
         </property>
 
@@ -96,6 +97,7 @@
                 | a server side SSL certificate.
                 +-->
             <entry key-ref="proxyAuthenticationHandler" value-ref="proxyPrincipalResolver" />
+            <entry key-ref="ldapAuthenticationHandler" value-ref="usernamePasswordCredentialsResolver" />
         </map>
         </property>
     </bean>
@@ -114,6 +116,9 @@
 
     <!-- Required for proxy ticket mechanism -->
     <bean id="proxyPrincipalResolver"
+          class="org.jasig.cas.authentication.principal.BasicPrincipalResolver" />
+
+    <bean id="usernamePasswordCredentialsResolver"
           class="org.jasig.cas.authentication.principal.BasicPrincipalResolver" />
 
     <!--

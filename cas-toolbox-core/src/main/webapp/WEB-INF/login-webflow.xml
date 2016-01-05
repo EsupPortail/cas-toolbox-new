@@ -24,7 +24,7 @@
       xsi:schemaLocation="http://www.springframework.org/schema/webflow
                           http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd">
 
-    <var name="credential" class="org.jasig.cas.authentication.UsernamePasswordCredential" />
+    <var name="credential" class="org.esupportail.cas.addon.authentication.ExtrasInfosRememberMeUsernamePasswordCredential" />
     <on-start>
         <evaluate expression="initialFlowSetupAction" />
     </on-start>
@@ -83,6 +83,8 @@
     
 	<view-state id="viewLoginForm" view="casLoginView" model="credential">
         <binder>
+            <binding property="userAgent" />
+            <binding property="ipAddress" />
             <binding property="username" />
             <binding property="password" />
         </binder>
