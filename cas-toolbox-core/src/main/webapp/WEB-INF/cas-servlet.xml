@@ -295,30 +295,4 @@
         c:tgtCookieGenerator-ref="ticketGrantingTicketCookieGenerator"
         c:warnCookieGenerator-ref="warnCookieGenerator"/>
 
-  <!--Token Manager-->
-  <context:component-scan base-package="org.esupportail.cas.addon.service,org.esupportail.cas.addon.utils"/>
-  <mvc:annotation-driven />
-
-  <bean class="org.esupportail.cas.addon.utils.TicketRegistryUtils" name="utils"></bean>
-
-  <context:annotation-config/>
-  
-  <bean id="root" class="org.restlet.ext.spring.SpringRouter" p:attachments-ref="attachmentsMap" />
-  
-  <util:map id="attachmentsMap">
-    <entry key="/tickets">
-      <bean class="org.restlet.ext.spring.SpringFinder">
-        <lookup-method name="create" bean="ticketResource" />
-      </bean>
-    </entry>
-    <entry key="/tickets/{ticketGrantingTicketId}">
-      <bean class="org.restlet.ext.spring.SpringFinder">
-        <lookup-method name="create" bean="ticketGrantingTicketResource" />
-      </bean>
-    </entry>
-  </util:map>
-  
-  <bean id="ticketResource" class="org.jasig.cas.integration.restlet.TicketResource" scope="prototype" />
-  
-  <bean id="ticketGrantingTicketResource" class="org.jasig.cas.integration.restlet.TicketGrantingTicketResource" scope="prototype" />
 </beans>
