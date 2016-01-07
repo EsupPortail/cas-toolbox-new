@@ -121,6 +121,23 @@
     <bean id="usernamePasswordCredentialsResolver"
           class="org.jasig.cas.authentication.principal.BasicPrincipalResolver" />
 
+          <bean id="ldapAuthenticationHandler"
+            class="org.jasig.cas.authentication.LdapAuthenticationHandler"
+            p:principalIdAttribute="uid"
+            c:authenticator-ref="authenticator">
+            <property name="principalAttributeMap">
+              <map>
+            <!--
+               | This map provides a simple attribute resolution mechanism.
+               | Keys are LDAP attribute names, values are CAS attribute names.
+               | Use this facility instead of a PrincipalResolver if LDAP is
+               | the only attribute source.
+             -->
+             <entry key="uid" value="uid" />
+           </map>
+         </property>
+       </bean>
+
     <!--
        | Resolves a principal from a credential using an attribute repository that is configured to resolve
        | against a deployer-specific store (e.g. LDAP).
