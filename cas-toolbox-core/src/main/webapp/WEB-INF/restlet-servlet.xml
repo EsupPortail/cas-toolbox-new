@@ -49,9 +49,7 @@
         </entry>
     </util:map>
             
-	<bean id="ticketResource" class="org.jasig.cas.integration.restlet.TicketResource" scope="prototype">
-    <property name="enabled" value="${token-manager.enabled}"/>
-  </bean>
+	<bean id="ticketResource" class="org.jasig.cas.integration.restlet.TicketResource" scope="prototype"/>
 	
 	<bean id="ticketGrantingTicketResource" class="org.jasig.cas.integration.restlet.TicketGrantingTicketResource" scope="prototype" />
 

@@ -88,8 +88,10 @@
     
 	<view-state id="viewLoginForm" view="casLoginView" model="credential">
         <binder>
-            <binding property="userAgent" />
-            <binding property="ipAddress" />
+          <!-- IF USE ESUP TokenManager : start -->
+          <binding property="userAgent" />
+          <binding property="ipAddress" />
+          <!-- IF USE ESUP TokenManager : stop -->
             <binding property="username" />
             <binding property="password" />
         </binder>
