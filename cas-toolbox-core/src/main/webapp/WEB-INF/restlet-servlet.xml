@@ -33,7 +33,7 @@
                       http://www.springframework.org/schema/util/spring-util.xsd">
 
 	<context:annotation-config/>
-	
+	<!-- IF USE ESUP TokenManager : start -->
 	<bean id="root" class="org.restlet.ext.spring.SpringRouter" p:attachments-ref="attachmentsMap" />
 	
     <util:map id="attachmentsMap">
@@ -49,8 +49,12 @@
         </entry>
     </util:map>
             
-	<bean id="ticketResource" class="org.jasig.cas.integration.restlet.TicketResource" scope="prototype" />
+	<bean id="ticketResource" class="org.jasig.cas.integration.restlet.TicketResource" scope="prototype">
+    <property name="enabled" value="${token-manager.enabled}"/>
+  </bean>
 	
 	<bean id="ticketGrantingTicketResource" class="org.jasig.cas.integration.restlet.TicketGrantingTicketResource" scope="prototype" />
+
+  <!-- IF USE ESUPE TokenManager : stop -->
 	
 </beans>
