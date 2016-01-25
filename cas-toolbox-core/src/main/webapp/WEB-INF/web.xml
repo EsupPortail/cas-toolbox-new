@@ -171,7 +171,8 @@
         <servlet-name>restlet</servlet-name>
         <url-pattern>/v1/*</url-pattern>
     </servlet-mapping>
-
+<!-- IF USE ESUP TokenManager : start -->
+<!-- works with restful -->
     <filter-mapping>
     <filter-name>springSecurityFilterChain</filter-name>
     <url-pattern>/token-manager/*</url-pattern>
@@ -204,6 +205,7 @@
         <param-value>GET, POST, DELETE</param-value>
     </init-param>
 </filter-mapping>
+<!-- IF USE ESUP TokenManager : stop -->
 
     <!-- IF USE restful : end-->
 

@@ -31,7 +31,7 @@
   </description>
 
   <sec:authentication-manager />
-
+  <!-- IF USE ESUP TokenManager : start -->
   <sec:http pattern="/status/**" entry-point-ref="notAuthorizedEntryPoint" use-expressions="true" auto-config="true">
     <sec:intercept-url pattern="/status" access="${cas.securityContext.status.access}" />
   </sec:http>
@@ -45,7 +45,7 @@
 </sec:http>
 
   <bean id="notAuthorizedEntryPoint" class="org.springframework.security.web.authentication.Http403ForbiddenEntryPoint" />
-
+  <!-- IF USE ESUP TokenManager : stop -->
 
 
 </beans>

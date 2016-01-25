@@ -67,7 +67,9 @@
                   <property name="traceMeUniqueIdGenerator" ref="traceMeUniqueIdGenerator"/>
               </bean>
               <!-- IF USE ESUP TraceMe : stop -->
+              <!-- IF USE ESUP TokenManager : start -->
               <bean class="org.esupportail.cas.addon.authentication.principal.ExtrasInfosAuthenticationMetaDataPopulator" />
+              <!-- IF USE ESUP TokenManager : stop -->
            </util:list>
         </property>
 
@@ -97,7 +99,9 @@
                 | a server side SSL certificate.
                 +-->
             <entry key-ref="proxyAuthenticationHandler" value-ref="proxyPrincipalResolver" />
+            <!-- IF USE ESUP TokenManager : start -->
             <entry key-ref="ldapAuthenticationHandler" value-ref="usernamePasswordCredentialsResolver" />
+            <!-- IF USE ESUP TokenManager : st -->
         </map>
         </property>
     </bean>
@@ -118,6 +122,7 @@
     <bean id="proxyPrincipalResolver"
           class="org.jasig.cas.authentication.principal.BasicPrincipalResolver" />
 
+    <!-- IF USE ESUP TokenManager : start -->
     <bean id="usernamePasswordCredentialsResolver"
           class="org.jasig.cas.authentication.principal.BasicPrincipalResolver" />
 
@@ -137,6 +142,7 @@
            </map>
          </property>
        </bean>
+    <!-- IF USE ESUP TokenManager : stop -->
 
     <!--
        | Resolves a principal from a credential using an attribute repository that is configured to resolve
