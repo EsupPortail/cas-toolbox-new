@@ -53,6 +53,6 @@
 	
 	<bean id="ticketGrantingTicketResource" class="org.jasig.cas.integration.restlet.TicketGrantingTicketResource" scope="prototype" />
 
-  <!-- IF USE ESUPE TokenManager : stop -->
+  <!-- IF USE ESUP TokenManager : stop -->
 	
 </beans>
