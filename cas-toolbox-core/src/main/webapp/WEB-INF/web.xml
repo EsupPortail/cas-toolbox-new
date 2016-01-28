@@ -171,6 +171,40 @@
         <servlet-name>restlet</servlet-name>
         <url-pattern>/v1/*</url-pattern>
     </servlet-mapping>
+    <!-- IF USE ESUP TokenManager : start -->   
+    <!-- works with restful -->   
+        <filter-mapping>    
+        <filter-name>springSecurityFilterChain</filter-name>    
+        <url-pattern>/token-manager/*</url-pattern>   
+    </filter-mapping>   
+    <servlet>   
+        <servlet-name>token-service</servlet-name>    
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>    
+         <load-on-startup>1</load-on-startup>   
+    </servlet>    
+        
+    <servlet-mapping>   
+        <servlet-name>token-service</servlet-name>    
+        <url-pattern>/token-manager/*</url-pattern>   
+    </servlet-mapping>    
+        
+    <filter>    
+        <filter-name>CORS</filter-name>   
+        <filter-class>com.thetransactioncompany.cors.CORSFilter</filter-class>    
+    </filter>   
+    <filter-mapping>    
+        <filter-name>CORS</filter-name>   
+        <servlet-name>token-service</servlet-name>    
+        <init-param>    
+            <param-name>cors.allowOrigin</param-name>   
+            <param-value>*</param-value>    
+        </init-param>   
+        <init-param>    
+            <param-name>cors.supportedMethods</param-name>    
+            <param-value>GET, POST, DELETE</param-value>    
+        </init-param>   
+    </filter-mapping>   
+    <!-- IF USE ESUP TokenManager : stop -->
     <!-- IF USE restful : end-->
 
   <servlet-mapping>
