@@ -10,6 +10,7 @@ You must have JDK (1.6 or greater), Maven 3 install (and Tomcat 7 or greater)
  - Esup pre-settings and add-ons
      * Esup Theme, LDAP, Logging, TraceMe, Stats, BlockAttack, SAML 1.1…
      * Configured modules that user can activate : Memcached, Rest…
+ - token manager addon integration
 
 
 -------------------------------------
@@ -27,6 +28,16 @@ You must have JDK (1.6 or greater), Maven 3 install (and Tomcat 7 or greater)
  - Start Tomcat and browse 
 	http://localhost:8080/cas
 	http://localhost:8080/cas-management 
+
+For the usage of the Token Manager addon
+(method without maven repository for the token manager, when a repository will be created the installation method will changed)
+
+- git clone https://github.com/Hakall/esup-cas-tokenmanager.git
+- copy the esup-cas-tokenmanager/cas-addon-ticket-management/src/main/java/org/esupportail/cas/addon folder into cas-toolbox-new/cas-toolbox-core/src/main/java/org/esupportail/cas/
+- configure the *.properties files of both cas-addon-ticket-management and cas-ticket-management-webapp folders to match your installation
+- Deploy esup-cas-tokenmanager/cas-ticket-management-webapp in your Tomcat
+- Start Tomcat and browse 
+	http://localhost:8080/cas-ticket-management/
 
 
 -------------------------------------

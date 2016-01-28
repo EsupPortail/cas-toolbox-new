@@ -65,6 +65,8 @@
 
       <input class="btn-submit" name="submit" accesskey="l" value="<spring:message code="screen.welcome.button.login" />" tabindex="4" type="submit" />
       <input class="btn-reset" name="reset" accesskey="c" value="<spring:message code="screen.welcome.button.clear" />" tabindex="5" type="reset" />
+      <input type="hidden" name="ipAddress" value="${pageContext.request.remoteAddr}"/>
+      <input type="hidden" name="userAgent" value="${header['user-agent']}" />
     </section>
   </form:form>
 </div>

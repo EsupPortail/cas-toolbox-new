@@ -294,4 +294,5 @@
         c:cas-ref="centralAuthenticationService"
         c:tgtCookieGenerator-ref="ticketGrantingTicketCookieGenerator"
         c:warnCookieGenerator-ref="warnCookieGenerator"/>
+
 </beans>
