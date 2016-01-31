@@ -19,8 +19,11 @@
 package org.jasig.cas.audit.spi;
 
 import org.aspectj.lang.JoinPoint;
+
 import com.github.inspektr.common.spi.PrincipalResolver;
+
 import org.jasig.cas.authentication.Credential;
+import org.jasig.cas.authentication.UsernamePasswordCredential;
 import org.jasig.cas.ticket.ServiceTicket;
 import org.jasig.cas.ticket.Ticket;
 import org.jasig.cas.ticket.TicketGrantingTicket;
@@ -63,7 +66,19 @@ public final class TicketOrCredentialPrincipalResolver implements PrincipalResol
 
     protected String resolveFromInternal(final JoinPoint joinPoint) {
         final Object arg1 = joinPoint.getArgs()[0];
-        if (arg1 instanceof Credential) {
+        //avoid audit:unknown
+        if (arg1 instanceof Credential[]) {
+            Credential[] credential;
+            credential = new Credential[1];
+            System.arraycopy(arg1, 0, credential, 0, 1);
+            if (credential[0] instanceof UsernamePasswordCredential) {
+                UsernamePasswordCredential[] userPassword = new UsernamePasswordCredential[1];
+                System.arraycopy(credential, 0, userPassword, 0, 1);
+                return userPassword[0].getUsername();
+            } else {
+                return credential[0].toString();
+            }
+        } else if (arg1 instanceof Credential) {
            return arg1.toString();
         } else if (arg1 instanceof String) {
             final Ticket ticket = this.ticketRegistry.getTicket((String) arg1);

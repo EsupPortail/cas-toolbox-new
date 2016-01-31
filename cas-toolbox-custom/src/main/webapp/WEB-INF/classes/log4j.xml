@@ -154,8 +154,9 @@
     </logger>
     <!-- IF USE ESUP blockAttack : stop -->
 
+    <!-- Set DEBUG in order to see all audit information ; Set INFO in order to see only AUTHENTICATION_SUCCESS and AUTHENTICATION_FAILED -->
     <logger name="org.esupportail.cas.audit.support.AuthAuditTrailManager" additivity="false">
-        <level value="INFO" />
+        <level value="DEBUG" />
         <appender-ref ref="authAppender" />
     </logger>
 

@@ -31,10 +31,9 @@ public final class AuthAuditTrailManager implements AuditTrailManager {
 	
 	public void record(final AuditActionContext auditActionContext) {
 		if(("AUTHENTICATION_SUCCESS").equals(auditActionContext.getActionPerformed()) || ("AUTHENTICATION_FAILED").equals(auditActionContext.getActionPerformed())) {
-			if(auditActionContext.getPrincipal().startsWith("[username:")) {
-				log.info(auditActionContext.getWhenActionWasPerformed() + " - " + auditActionContext.getActionPerformed() + " for '"+auditActionContext.getPrincipal() + "' from '" + auditActionContext.getClientIpAddress() + "'");
-			}
-		}
 			log.info(auditActionContext.getWhenActionWasPerformed() + " - " + auditActionContext.getActionPerformed() + " for '"+auditActionContext.getPrincipal() + "' from '" + auditActionContext.getClientIpAddress() + "'");
+		} else {
+			log.debug(auditActionContext.getWhenActionWasPerformed() + " - " + auditActionContext.getActionPerformed() + " for '"+auditActionContext.getPrincipal() + "' from '" + auditActionContext.getClientIpAddress() + "'");
+		}
 	}
 }
