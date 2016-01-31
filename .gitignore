@@ -16,5 +16,9 @@ pom.xml.versionsBackup
 *.log
 
 **/.checkstyle
+**/*.orig
+.gradle/
+**/build/
+**/MANIFEST.MF
 
-
+classes/
