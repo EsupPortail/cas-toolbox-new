@@ -5,7 +5,7 @@
    <groupId>org.esupportail.cas</groupId>
    <artifactId>cas-toolbox</artifactId>
    <packaging>pom</packaging>
-   <version>4.0.5</version>
+   <version>4.0.7</version>
    <name>Esup CAS-toolbox-new v4</name>
    <description>Esup CAS-toolbox-new v4</description>
 
@@ -23,7 +23,7 @@
   </licenses>
 
    <properties>
-      <cas.version>4.0.5</cas.version>
+      <cas.version>4.0.7</cas.version>
       
       <base.prefix></base.prefix>
       <server.uri>/cas</server.uri>
@@ -37,10 +37,14 @@
 
       <aspectj.version>1.7.2</aspectj.version>
       <commons-lang.version>2.5</commons-lang.version>
+      <ldaptive.version>1.0.7</ldaptive.version>
+      <javax.validation.version>1.0.0.GA</javax.validation.version>
+
+      <cas-client.version>3.2.2</cas-client.version>
 
       <slf4j.version>1.7.5</slf4j.version>
 
-      <spring.version>3.2.9.RELEASE</spring.version>
+      <spring.version>3.2.15.RELEASE</spring.version>
       <spring.security.version>3.2.0.RELEASE</spring.security.version>
 
       <servlet.api.version>2.5</servlet.api.version>
@@ -58,6 +62,7 @@
             <groupId>org.jasig.cas</groupId>
             <artifactId>cas-server-core</artifactId>
             <version>${project.version}</version>
+            <scope>compile</scope>
         </dependency>
 
       <dependency>
@@ -74,6 +79,12 @@
          <version>${cas.version}</version>
          <type>war</type>
          <scope>runtime</scope>
+         <exclusions>
+           <exclusion>
+              <groupId>org.jasig.cas.client</groupId>
+              <artifactId>cas-client-core</artifactId>
+           </exclusion>
+         </exclusions>
       </dependency>
 
       <!--  IF USE ESUP memcache : start -->
@@ -231,11 +242,26 @@
         <scope>runtime</scope>
       </dependency-->
 
+      <!-- Update CAS Client used by cas-management-webapp and cas-server-extension-clearpass -->
+      <dependency>
+         <groupId>org.jasig.cas.client</groupId>
+         <artifactId>cas-client-core</artifactId>
+         <version>${cas-client.version}</version>
+         <scope>compile</scope>
+         <exclusions>
+           <exclusion>
+             <groupId>javax.servlet</groupId>
+             <artifactId>servlet-api</artifactId>
+           </exclusion>
+         </exclusions>
+      </dependency>
+
       <!-- TraceMe dependency -->
       <dependency>
         <groupId>org.springframework</groupId>
         <artifactId>spring-web</artifactId>
         <version>${spring.version}</version>
+        <scope>compile</scope>
         <exclusions>
           <exclusion>
             <groupId>commons-logging</groupId>
@@ -248,6 +274,7 @@
         <groupId>org.springframework</groupId>
         <artifactId>spring-webmvc</artifactId>
         <version>${spring.version}</version>
+        <scope>compile</scope>
         <exclusions>
           <exclusion>
             <groupId>commons-logging</groupId>
@@ -256,15 +283,20 @@
         </exclusions>
       </dependency>
       
-            <!-- Spring Security Managed Dependencies -->
+      <!-- Spring Security Managed Dependencies -->
       <dependency>
         <groupId>org.springframework.security</groupId>
         <artifactId>spring-security-cas</artifactId>
         <version>${spring.security.version}</version>
+        <scope>compile</scope>
         <exclusions>
           <exclusion>
             <groupId>commons-logging</groupId>
             <artifactId>commons-logging</artifactId>
+          </exclusion>
+          <exclusion>
+            <groupId>org.jasig.cas.client</groupId>
+            <artifactId>cas-client-core</artifactId>
           </exclusion>
         </exclusions>
       </dependency>
@@ -273,6 +305,7 @@
         <groupId>org.springframework.security</groupId>
         <artifactId>spring-security-core</artifactId>
         <version>${spring.security.version}</version>
+        <scope>compile</scope>
       </dependency>
 
       <dependency>
@@ -298,7 +331,7 @@
          <groupId>javax.servlet</groupId>
          <artifactId>servlet-api</artifactId>
          <version>${servlet.api.version}</version>
-         <scope>compile</scope>
+         <scope>provided</scope>
       </dependency>
    </dependencies>
   </dependencyManagement>
