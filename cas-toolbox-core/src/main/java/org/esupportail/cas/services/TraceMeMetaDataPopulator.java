@@ -25,6 +25,7 @@ import javax.validation.constraints.NotNull;
 import org.jasig.cas.authentication.AuthenticationBuilder;
 import org.jasig.cas.authentication.AuthenticationMetaDataPopulator;
 import org.jasig.cas.authentication.Credential;
+import org.jasig.cas.authentication.UsernamePasswordCredential;
 import org.jasig.cas.util.UniqueTicketIdGenerator;
 import org.jasig.cas.web.support.CookieRetrievingCookieGenerator;
 import org.slf4j.Logger;
@@ -33,8 +34,7 @@ import org.springframework.webflow.context.ExternalContext;
 import org.springframework.webflow.context.ExternalContextHolder;
 import org.springframework.webflow.context.servlet.ServletExternalContext;
 
-public final class TraceMeMetaDataPopulator implements
-    AuthenticationMetaDataPopulator {
+public final class TraceMeMetaDataPopulator implements AuthenticationMetaDataPopulator {
 
 	protected final static Logger log = LoggerFactory.getLogger(TraceMeMetaDataPopulator.class);
 	
@@ -47,20 +47,24 @@ public final class TraceMeMetaDataPopulator implements
 	private boolean enabled = false;
 	
 	@Override
-	public void populateAttributes(AuthenticationBuilder builder, Credential credential) {
+	public void populateAttributes(final AuthenticationBuilder builder, final Credential credential) {
 		if(enabled) {
-			String id = traceMeUniqueIdGenerator.getNewTicketId("TRACE");
-			String principalId = builder.getPrincipal().getId();
-			
-			ExternalContext externalContext = ExternalContextHolder.getExternalContext();
-			ServletExternalContext servletExternalContext = (ServletExternalContext) externalContext;
-			 
-			HttpServletRequest request = (HttpServletRequest) servletExternalContext.getNativeRequest();
-			HttpServletResponse response = (HttpServletResponse) servletExternalContext.getNativeResponse();
-			
-			this.traceMeCookieGenerator.addCookie(request, response, id);
-
-			log.info(id + ":" + principalId);
+			if (credential instanceof UsernamePasswordCredential) {
+				String id = traceMeUniqueIdGenerator.getNewTicketId("TRACE");
+				String principalId = builder.getPrincipal().getId();
+				
+				ExternalContext externalContext = ExternalContextHolder.getExternalContext();
+				ServletExternalContext servletExternalContext = (ServletExternalContext) externalContext;
+				
+				HttpServletRequest request = (HttpServletRequest) servletExternalContext.getNativeRequest();
+				HttpServletResponse response = (HttpServletResponse) servletExternalContext.getNativeResponse();
+				
+				this.traceMeCookieGenerator.addCookie(request, response, id);
+				
+				log.info(id + ":" + principalId);
+			} else {
+				log.debug("TraceMeMetaDataPopulator.populateAttributes, TraceMe cookie not supported for class " + credential!= null?credential.getClass().toString():"null");
+			}
 		}
 	}
 
@@ -75,5 +79,4 @@ public final class TraceMeMetaDataPopulator implements
 	public void setTraceMeUniqueIdGenerator(final UniqueTicketIdGenerator uniqueTicketIdGenerator) {
 		this.traceMeUniqueIdGenerator = uniqueTicketIdGenerator;
 	}
-    
 }
