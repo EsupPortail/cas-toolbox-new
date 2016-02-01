@@ -58,8 +58,10 @@
              This switch effectively will turn on clearpass. -->
         <property name="authenticationMetaDataPopulators">
            <util:list>
+              <!-- IF USE clearpass : start -->
               <!-- <bean class="org.jasig.cas.extension.clearpass.CacheCredentialsMetaDataPopulator"
-                    c:credentialCache-ref="encryptedMap" /> -->
+                    c:credentialCache-ref="credentialsCache" /> -->
+              <!-- IF USE clearpass : stop -->
               <!-- IF USE ESUP TraceMe : start -->
               <bean class="org.esupportail.cas.services.TraceMeMetaDataPopulator">
                   <property name="enabled" value="${trace.enabled}"/>
