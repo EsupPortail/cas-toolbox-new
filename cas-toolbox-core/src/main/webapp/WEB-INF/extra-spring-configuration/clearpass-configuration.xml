@@ -103,7 +103,6 @@
           p:useSession="true" p:ticketValidator-ref="clearPassTicketValidator"/>
 
     <bean id="clearPassTicketValidator" class="org.jasig.cas.client.validation.Cas20ProxyTicketValidator"
-          p:allowEmptyProxyChain="false"
           p:acceptAnyProxy="false"
           c:casServerUrlPrefix="${server.prefix}" p:allowedProxyChains-ref="clearPassProxyList"/>
 
