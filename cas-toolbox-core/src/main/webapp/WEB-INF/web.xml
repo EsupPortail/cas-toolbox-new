@@ -169,7 +169,7 @@
     <load-on-startup>1</load-on-startup>
   </servlet>
 	
-  <!-- IF USE restful : start-->
+  <!-- IF USE restful : start -->
   <servlet>
       <servlet-name>restlet</servlet-name>
         <servlet-class>org.restlet.ext.spring.RestletFrameworkServlet</servlet-class>
@@ -181,11 +181,12 @@
       <url-pattern>/REST/*</url-pattern>
   </servlet-mapping>
 
-    <servlet-mapping>
-        <servlet-name>restlet</servlet-name>
-        <url-pattern>/v1/*</url-pattern>
-    </servlet-mapping>
-    <!-- IF USE restful : end-->
+  <servlet-mapping>
+      <servlet-name>restlet</servlet-name>
+      <url-pattern>/v1/*</url-pattern>
+  </servlet-mapping>
+  <!-- IF USE restful : end -->
+
   <!-- IF USE clearpass : start -->
 <!--  <servlet-mapping>
     <servlet-name>cas</servlet-name>
