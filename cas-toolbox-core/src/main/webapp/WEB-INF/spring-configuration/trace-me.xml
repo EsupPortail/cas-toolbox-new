@@ -39,7 +39,7 @@
 		<constructor-arg
 			index="0"
 			type="int"
-			value="50" />
+			value="${trace.ramdomMaxLength}" />
 		<constructor-arg
 			index="1" value="${host.name}" />
 	</bean>
