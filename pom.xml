@@ -87,7 +87,7 @@
          </exclusions>
       </dependency>
 
-      <!--  IF USE ESUP memcache : start -->
+      <!--  IF USE memcached : start -->
       <!--dependency>
          <groupId>org.jasig.cas</groupId>
          <artifactId>cas-server-integration-memcached</artifactId>
@@ -95,7 +95,23 @@
          <type>jar</type>
          <scope>runtime</scope>
       </dependency-->
-       <!--  IF USE ESUP memcache : stop -->
+      <!--  IF USE memcached : stop -->
+
+      <!--  IF USE clearpass : start -->
+      <!-- dependency>
+         <groupId>org.jasig.cas</groupId>
+         <artifactId>cas-server-extension-clearpass</artifactId>
+         <version>${cas.version}</version>
+         <type>jar</type>
+         <scope>runtime</scope>
+         <exclusions>
+           <exclusion>
+              <groupId>org.jasig.cas.client</groupId>
+              <artifactId>cas-client-core</artifactId>
+           </exclusion>
+         </exclusions>
+      </dependency-->
+      <!--  IF USE clearpass : stop -->
 
       <!-- IF USE restful : start -->
       <!--  spring-web conflicts 3.0.5 and 3.2 -->

@@ -31,6 +31,9 @@
       /WEB-INF/spring-configuration/*.xml
       /WEB-INF/auth-configuration/*.xml
       /WEB-INF/deployerConfigContext.xml
+      <!-- IF USE clearpass : start -->
+      <!-- /WEB-INF/extra-spring-configuration/clearpass-configuration.xml -->
+      <!-- IF USE clearpass : stop -->
     </param-value>
   </context-param>
 
@@ -110,6 +113,17 @@
     <url-pattern>/statistics</url-pattern>
   </filter-mapping>
 
+  <!-- IF USE clearpass : start-->
+<!--  <filter>
+    <filter-name>clearPassFilterChainProxy</filter-name>
+    <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>clearPassFilterChainProxy</filter-name>
+    <url-pattern>/clearPass</url-pattern>
+  </filter-mapping> -->
+  <!-- IF USE clearpass : stop-->
+
   <!--
     - Loads the CAS ApplicationContext.
     - The deployer choice here is how to handle Throwables thrown by Spring's
@@ -172,6 +186,12 @@
         <url-pattern>/v1/*</url-pattern>
     </servlet-mapping>
     <!-- IF USE restful : end-->
+  <!-- IF USE clearpass : start -->
+<!--  <servlet-mapping>
+    <servlet-name>cas</servlet-name>
+    <url-pattern>/clearPass</url-pattern>
+</servlet-mapping> -->
+  <!-- IF USE clearpass : end -->
 
   <servlet-mapping>
     <servlet-name>cas</servlet-name>

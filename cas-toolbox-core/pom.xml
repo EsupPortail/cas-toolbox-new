@@ -49,6 +49,17 @@
        </dependency-->
        <!--  IF USE ESUP memcache : stop -->
 
+       <!-- If USE clearpass : start -->
+       <!-- dependency>
+           <groupId>org.jasig.cas</groupId>
+           <artifactId>cas-server-extension-clearpass</artifactId>
+       </dependency>
+       <dependency>
+           <groupId>org.jasig.cas.client</groupId>
+           <artifactId>cas-client-core</artifactId>
+       </dependency-->
+        <!-- If USE clearpass : stop -->
+
        <!-- IF USE restful : start -->
        <dependency>
            <groupId>org.jasig.cas</groupId>

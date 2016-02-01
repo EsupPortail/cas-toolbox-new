@@ -23,14 +23,20 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:p="http://www.springframework.org/schema/p"
        xmlns:c="http://www.springframework.org/schema/c"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
     <description>
     	Configuration for the default TicketRegistry which stores the tickets in-memory and cleans them out as specified intervals.
     </description>
-       
-  <!-- Ticket Registry -->
-  <bean id="ticketRegistry" class="org.jasig.cas.ticket.registry.DefaultTicketRegistry" />
-	
+
+  <!-- IF USE clearpass : start-->
+  <!-- Replace the name of active ticketRegistry by ticketRegistryValue -->
+<!--  <bean id="ticketRegistryValue" class="org.jasig.cas.ticket.registry.DefaultTicketRegistry" />-->
+  <!-- IF USE clearpass : stop-->
+
+	<!-- Ticket Registry -->
+	<bean id="ticketRegistry" class="org.jasig.cas.ticket.registry.DefaultTicketRegistry" />
 	<!--Quartz -->
 	<!-- TICKET REGISTRY CLEANER -->
 	<bean id="ticketRegistryCleaner" class="org.jasig.cas.ticket.registry.support.DefaultTicketRegistryCleaner"
@@ -59,4 +65,30 @@
 	</bean>
 -->
 	<!--  IF USE ESUP memcache : stop -->
+
+    <!--  IF USE memcached : start -->
+    <!-- Comment all others beans : ticketRegistry, ticketRegistryCleaner, jobDetailTicketRegistryCleaner and triggerJobDetailTicketRegistryCleaner --> 
+<!--    <bean id="ticketRegistry"
+          class="org.jasig.cas.ticket.registry.MemCacheTicketRegistry"
+          c:client-ref="memcachedClient"
+          c:ticketGrantingTicketTimeOut="${tgt.maxTimeToLiveInSeconds}"
+          c:serviceTicketTimeOut="${st.timeToKillInSeconds}" />
+
+    <bean id="memcachedClient" class="net.spy.memcached.spring.MemcachedClientFactoryBean"
+          p:servers="${memcached.servers}"
+          p:protocol="${memcached.protocol}"
+          p:locatorType="${memcached.locatorType}"
+          p:failureMode="${memcached.failureMode}"
+          p:transcoder-ref="kryoTranscoder">
+        <property name="hashAlg">
+            <util:constant static-field="net.spy.memcached.DefaultHashAlgorithm.${memcached.hashAlgorithm}" />
+        </property>
+    </bean>
+
+    <bean id="kryoTranscoder"
+          class="org.jasig.cas.ticket.registry.support.kryo.KryoTranscoder"
+          init-method="initialize"
+          c:initialBufferSize="8192" />
+-->
+    <!--  IF USE memcached : stop -->	
 </beans>
