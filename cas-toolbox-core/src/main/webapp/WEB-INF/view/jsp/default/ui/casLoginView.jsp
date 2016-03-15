@@ -35,13 +35,13 @@
     <!-- <spring:message code="screen.welcome.welcome" /> -->
     <h2><spring:message code="screen.welcome.instructions" /></h2>
   
-    <section class="row">
+    <section class="form-group">
       <label for="username"><spring:message code="screen.welcome.label.netid" /></label>
           <spring:message code="screen.welcome.label.netid.accesskey" var="userNameAccessKey" />
-          <form:input cssClass="required" cssErrorClass="error" id="username" size="25" tabindex="1" accesskey="${userNameAccessKey}" path="username" autocomplete="off" htmlEscape="true" />
+          <form:input class="form-control" cssClass="required" cssErrorClass="error" id="username" size="25" tabindex="1" accesskey="${userNameAccessKey}" path="username" autocomplete="off" htmlEscape="true" />
     </section>
     
-    <section class="row">
+    <section class="form-group">
       <label for="password"><spring:message code="screen.welcome.label.password" /></label>
       <%--
       NOTE: Certain browsers will offer the option of caching passwords for a user.  There is a non-standard attribute,
@@ -50,13 +50,17 @@
       http://www.technofundo.com/tech/web/ie_autocomplete.html
       --%>
       <spring:message code="screen.welcome.label.password.accesskey" var="passwordAccessKey" />
-      <form:password cssClass="required" cssErrorClass="error" id="password" size="25" tabindex="2" path="password"  accesskey="${passwordAccessKey}" htmlEscape="true" autocomplete="off" />
+      <form:password class="form-control" cssClass="required" cssErrorClass="error" id="password" size="25" tabindex="2" path="password"  accesskey="${passwordAccessKey}" htmlEscape="true" autocomplete="off" />
     </section>
     
-    <section class="row check">
-      <input id="warn" name="warn" value="true" tabindex="3" accesskey="<spring:message code="screen.welcome.label.warn.accesskey" />" type="checkbox" />
-      <label for="warn"><spring:message code="screen.welcome.label.warn" /></label>
-    </section>
+    
+    <div class="checkbox">
+	     <label>
+      		<input id="warn" name="warn" value="true" tabindex="3" accesskey="<spring:message code="screen.welcome.label.warn.accesskey" />" type="checkbox" />
+      		<spring:message code="screen.welcome.label.warn" />
+      		 </label>
+    	</div>
+    
     
     <section class="row btn-row">
       <input type="hidden" name="lt" value="${loginTicket}" />
