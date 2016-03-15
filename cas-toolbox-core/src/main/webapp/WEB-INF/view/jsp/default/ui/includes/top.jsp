@@ -33,6 +33,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   
   <title>CAS &#8211; Central Authentication Service</title>
+   <!-- Bootstrap -->
+    <spring:theme code="bootstrap.css.file" var="bootstrapCssFile" />    
+   	<link href="${bootstrapCssFile }" rel="stylesheet" type="text/css">
   
   <spring:theme code="standard.custom.css.file" var="customCssFile" />
   <link type="text/css" rel="stylesheet" href="<c:url value="${customCssFile}" />" />
@@ -41,6 +44,11 @@
   <!--[if lt IE 9]>
     <script src="<c:url value="/js/html5shiv.js" />" type="text/javascript"></script>
   <![endif]-->
+   <!-- JQuery -->
+   	<script src="js/jquery.min.js" type="text/javascript"></script>
+    <!-- Bootstrap -->
+    <spring:theme code="bootstrap.js.file" var="bootstrapJsFile" />        
+   	<script src="${bootstrapJsFile }" type="text/javascript"></script>
 </head>
 <body id="cas">
   <div id="container">
