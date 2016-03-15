@@ -41,16 +41,13 @@ public final class TraceMeMetaDataPopulator implements AuthenticationMetaDataPop
 	@NotNull
 	private CookieRetrievingCookieGenerator traceMeCookieGenerator;
 	
-	@NotNull
-	private UniqueTicketIdGenerator traceMeUniqueIdGenerator;
-	
 	private boolean enabled = false;
 	
 	@Override
 	public void populateAttributes(final AuthenticationBuilder builder, final Credential credential) {
 		if(enabled) {
 			if (credential instanceof UsernamePasswordCredential) {
-				String id = traceMeUniqueIdGenerator.getNewTicketId("TRACE");
+				String id = java.util.UUID.randomUUID().toString();
 				String principalId = builder.getPrincipal().getId();
 				
 				ExternalContext externalContext = ExternalContextHolder.getExternalContext();
@@ -76,7 +73,7 @@ public final class TraceMeMetaDataPopulator implements AuthenticationMetaDataPop
 		this.traceMeCookieGenerator= traceMeCookieGenerator;
 	}
 
+	@Deprecated
 	public void setTraceMeUniqueIdGenerator(final UniqueTicketIdGenerator uniqueTicketIdGenerator) {
-		this.traceMeUniqueIdGenerator = uniqueTicketIdGenerator;
 	}
 }

@@ -34,14 +34,5 @@
 				p:cookieName="${trace.cookieName}"
 				p:cookiePath="${trace.cookiePath}"
 				p:cookieDomain="${trace.cookieDomain}"/>
-	
-	<bean id="traceMeUniqueIdGenerator" class="org.jasig.cas.util.DefaultUniqueTicketIdGenerator">
-		<constructor-arg
-			index="0"
-			type="int"
-			value="${trace.ramdomMaxLength}" />
-		<constructor-arg
-			index="1" value="${host.name}" />
-	</bean>
 	<!--  IF USE ESUP traceMe : stop -->
 </beans>
