@@ -134,6 +134,16 @@ form input[type="text"], form input[type="password"] {
     vertical-align: middle;
     width: 95%;
 }
+#login {
+    background: #fefefe none repeat scroll 0 0;
+    clear: both;
+    float: none;
+    margin: 3em auto 0;
+    padding-bottom: 5px;
+    padding-left: 10px;
+    padding-top: 15px;
+    width: 560px !important;
+}
 }
 @media (max-width: 972px) {
 html {
@@ -179,7 +189,8 @@ body {
     margin-left: 15px;
     margin-top: 10px;
     padding-bottom: 5px;
-    width: 50%;
+    padding-left: 5px;
+    padding-right: 5px;
 }
 .btn-submit:hover {
     background: rgba(30, 87, 153, 0.8);
@@ -245,7 +256,6 @@ form input[type="text"], form input[type="password"] {
     margin-right: 0.5em;
     width: 118px;
 }
-}
 #login {
     background: #fefefe none repeat scroll 0 0;
     clear: both;
@@ -254,8 +264,9 @@ form input[type="text"], form input[type="password"] {
     padding-bottom: 5px;
     padding-left: 10px;
     padding-top: 15px;
-    width: 560px !important;
 }
+}
+
 #login, #sidebar, #footer {
     background: #e3eaed;
     border-radius: 8px 8px 5px 5px;
