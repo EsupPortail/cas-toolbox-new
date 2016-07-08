@@ -66,7 +66,6 @@
               <bean class="org.esupportail.cas.services.TraceMeMetaDataPopulator">
                   <property name="enabled" value="${trace.enabled}"/>
                   <property name="traceMeCookieGenerator" ref="traceMeCookieGenerator"/>
-                  <property name="traceMeUniqueIdGenerator" ref="traceMeUniqueIdGenerator"/>
               </bean>
               <!-- IF USE ESUP TraceMe : stop -->
            </util:list>
